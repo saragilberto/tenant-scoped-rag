@@ -442,12 +442,12 @@ T31 → T32
 
 **Done when**:
 
-- [ ] Primeira execução grava documentos e chunks com metadados completos e texto original preservado (RAG-01)
-- [ ] Segunda execução sem alteração deixa as contagens idênticas (RAG-02)
-- [ ] Arquivo com falha é registrado, a ingestão prossegue e o código de saída é ≠ 0 (RAG-05)
-- [ ] Teste confirma que a ingestão conecta como `rag_ingest` e é impedida pelo banco de gravar em outro tenant
-- [ ] Gate check passa: `uv run pytest tests/unit tests/integration tests/isolation -q`
-- [ ] Test count: 7 testes passam (sem deleções silenciosas)
+- [x] Primeira execução grava documentos e chunks com metadados completos e texto original preservado (RAG-01)
+- [x] Segunda execução sem alteração deixa as contagens idênticas (RAG-02)
+- [x] Arquivo com falha é registrado, a ingestão prossegue e o código de saída é ≠ 0 (RAG-05)
+- [x] Teste confirma que a ingestão conecta como `rag_ingest` e é impedida pelo banco de gravar em outro tenant
+- [x] Gate check passa: `uv run pytest tests/unit tests/integration tests/isolation -q`
+- [x] Test count: 7 testes passam (sem deleções silenciosas)
 
 **Tests**: integration
 **Gate**: full
