@@ -162,9 +162,9 @@ T31 → T32
 
 **Done when**:
 
-- [ ] `docker compose up -d` sobe e `SELECT extversion FROM pg_extension WHERE extname='vector'` devolve `0.8.1`
-- [ ] Os dois bancos existem e são alcançáveis
-- [ ] Gate check passa: `uv run ruff check . && uv run ruff format --check . && uv run pytest -q`
+- [x] `docker compose up -d` sobe e `SELECT extversion FROM pg_extension WHERE extname='vector'` devolve `0.8.1` — ⚠️ spec-precision gap: a imagem `pgvector/pgvector:pg17` é tag flutuante; em 2026-08-24 resolveu `0.8.6` (verificado manualmente), não `0.8.1`. O requisito real de design é `≥ 0.8` (exigido por `hnsw.iterative_scan`, RAG-10) e `0.8.6` satisfaz; `0.8.1` era apenas "corrente em mai/2026"
+- [x] Os dois bancos existem e são alcançáveis
+- [x] Gate check passa: `uv run ruff check . && uv run ruff format --check . && uv run pytest -q`
 
 **Tests**: none
 **Gate**: build

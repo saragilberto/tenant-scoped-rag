@@ -1,0 +1,36 @@
+services:
+  db:
+    image: pgvector/pgvector:pg17
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: rag
+    ports:
+      - "55432:5432"
+    volumes:
+      - rag_pg_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d rag"]
+      interval: 2s
+      timeout: 3s
+      retries: 20
+
+  db_single_tenant:
+    image: pgvector/pgvector:pg17
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: rag_single_tenant
+    ports:
+      - "55433:5432"
+    volumes:
+      - rag_pg_single_tenant_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d rag_single_tenant"]
+      interval: 2s
+      timeout: 3s
+      retries: 20
+
+volumes:
+  rag_pg_data:
+  rag_pg_single_tenant_data:
