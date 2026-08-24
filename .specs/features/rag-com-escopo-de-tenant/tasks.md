@@ -181,12 +181,12 @@ T31 → T32
 
 **Done when**:
 
-- [ ] Ao menos 20 artigos em `corpus/meridian/`, cobrindo os 8 assuntos de sobreposição (erro de login, importação de CSV, 2FA, limites de API, exportação de fatura, webhooks, SSO, retenção de logs)
-- [ ] Ao menos 5 artigos sem títulos internos, para exercitar o chunking por tamanho fixo (RAG-04)
-- [ ] Teste falha se algum artigo tiver front-matter incompleto ou visibilidade fora do vocabulário `empresa|departamentos|equipes|restrito`
-- [ ] Teste falha se algum artigo contiver padrão de dado real (CPF, e-mail, telefone)
-- [ ] Gate check passa: `uv run pytest tests/unit -q`
-- [ ] Test count: 4 testes passam (sem deleções silenciosas)
+- [x] Ao menos 20 artigos em `corpus/meridian/`, cobrindo os 8 assuntos de sobreposição (erro de login, importação de CSV, 2FA, limites de API, exportação de fatura, webhooks, SSO, retenção de logs)
+- [x] Ao menos 5 artigos sem títulos internos, para exercitar o chunking por tamanho fixo (RAG-04)
+- [x] Teste falha se algum artigo tiver front-matter incompleto ou visibilidade fora do vocabulário `empresa|departamentos|equipes|restrito`
+- [x] Teste falha se algum artigo contiver padrão de dado real (CPF, e-mail, telefone)
+- [x] Gate check passa: `uv run pytest tests/unit -q`
+- [x] Test count: 4 testes passam (sem deleções silenciosas)
 
 **Tests**: unit
 **Gate**: quick
