@@ -1627,6 +1627,7 @@ dependencies = [
     { name = "mcp" },
     { name = "pgvector" },
     { name = "psycopg", extra = ["binary"] },
+    { name = "pyyaml" },
     { name = "sentence-transformers" },
 ]
 
@@ -1641,6 +1642,7 @@ requires-dist = [
     { name = "mcp", specifier = ">=2.0.0" },
     { name = "pgvector", specifier = ">=0.3.6" },
     { name = "psycopg", extras = ["binary"], specifier = ">=3.2" },
+    { name = "pyyaml", specifier = ">=6.0" },
     { name = "sentence-transformers", specifier = ">=3.3" },
 ]
 

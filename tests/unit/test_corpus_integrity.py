@@ -64,7 +64,8 @@ def test_meridian_has_at_least_5_articles_without_internal_headings():
         if not any(line.lstrip().startswith("#") for line in body.splitlines()):
             no_heading_count += 1
     assert no_heading_count >= 5, (
-        f"expected >= 5 meridian articles with no internal markdown headings, found {no_heading_count}"
+        f"expected >= 5 meridian articles with no internal markdown headings, "
+        f"found {no_heading_count}"
     )
 
 
@@ -75,7 +76,8 @@ def test_all_corpus_articles_have_complete_valid_front_matter():
         assert not missing, f"{article} is missing front-matter fields: {missing}"
         visibility = front_matter["visibility"]
         assert visibility in VISIBILITY_VOCAB, (
-            f"{article} has visibility {visibility!r} outside the allowed vocabulary {VISIBILITY_VOCAB}"
+            f"{article} has visibility {visibility!r} outside the allowed vocabulary "
+            f"{VISIBILITY_VOCAB}"
         )
 
 

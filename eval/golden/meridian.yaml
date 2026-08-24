@@ -1,0 +1,123 @@
+# Golden set for tenant "meridian" (CRM). 30 hand-written questions with annotated relevant
+# documents. Each question also runs under the "halcyon" identity in the isolation suite, where
+# the expected result is zero chunks (RAG-18) — see tests/isolation/test_cross_tenant.py.
+- id: m01
+  question: "Why would someone keep seeing a workspace-not-found error after their company rebranded?"
+  relevant_docs:
+    - corpus/meridian/login-error.md
+- id: m02
+  question: "How long does the cooldown last after five failed sign-in attempts in a row?"
+  relevant_docs:
+    - corpus/meridian/login-error.md
+- id: m03
+  question: "What happens to CSV rows that fail validation during a contact import?"
+  relevant_docs:
+    - corpus/meridian/csv-import.md
+- id: m04
+  question: "How does the CSV importer decide two rows describe the same contact?"
+  relevant_docs:
+    - corpus/meridian/csv-import.md
+- id: m05
+  question: "What happens across the whole workspace once two-factor authentication is enforced for everyone?"
+  relevant_docs:
+    - corpus/meridian/two-factor-auth.md
+- id: m06
+  question: "What is the difference between a two-factor lockout and device clock drift?"
+  relevant_docs:
+    - corpus/meridian/two-factor-auth.md
+- id: m07
+  question: "Is the API rate limit measured per workspace or per token?"
+  relevant_docs:
+    - corpus/meridian/api-rate-limits.md
+- id: m08
+  question: "Why is the bulk export endpoint limit stricter than the general API limit?"
+  relevant_docs:
+    - corpus/meridian/api-rate-limits.md
+- id: m09
+  question: "What currency are exported deal line items shown in?"
+  relevant_docs:
+    - corpus/meridian/invoice-export.md
+- id: m10
+  question: "What makes a webhook subscription get automatically paused?"
+  relevant_docs:
+    - corpus/meridian/webhooks.md
+- id: m11
+  question: "Can regular members still sign in with a password after SSO is enforced?"
+  relevant_docs:
+    - corpus/meridian/sso-setup.md
+- id: m12
+  question: "How many days are audit log entries kept before they are permanently deleted?"
+  relevant_docs:
+    - corpus/meridian/log-retention.md
+- id: m13
+  question: "What field is required when creating a lead manually?"
+  relevant_docs:
+    - corpus/meridian/creating-a-lead.md
+- id: m14
+  question: "What happens to a lead's original record once it converts into a contact?"
+  relevant_docs:
+    - corpus/meridian/creating-a-lead.md
+- id: m15
+  question: "Do existing deals move automatically when a new pipeline stage is inserted?"
+  relevant_docs:
+    - corpus/meridian/pipeline-stages.md
+- id: m16
+  question: "What happens to a single-select custom field's data if it is converted back from multi-select?"
+  relevant_docs:
+    - corpus/meridian/custom-fields.md
+- id: m17
+  question: "Can a custom field be hidden entirely from certain roles rather than just made read-only?"
+  relevant_docs:
+    - corpus/meridian/custom-fields.md
+- id: m18
+  question: "Does a deal's forecast category change automatically when its pipeline stage changes?"
+  relevant_docs:
+    - corpus/meridian/deal-forecasting.md
+- id: m19
+  question: "How does Meridian avoid logging internal company emails as customer communication?"
+  relevant_docs:
+    - corpus/meridian/email-sync-setup.md
+- id: m20
+  question: "What happens to a contact's activity history when it is merged as a duplicate?"
+  relevant_docs:
+    - corpus/meridian/duplicate-contact-merge.md
+- id: m21
+  question: "Can a contact merge be undone after it is confirmed?"
+  relevant_docs:
+    - corpus/meridian/duplicate-contact-merge.md
+- id: m22
+  question: "What happens to a lead that does not match any configured territory?"
+  relevant_docs:
+    - corpus/meridian/territory-assignment.md
+- id: m23
+  question: "What are the two components that make up a lead's score?"
+  relevant_docs:
+    - corpus/meridian/lead-scoring-model.md
+- id: m24
+  question: "Does lowering the sales handoff score threshold re-route leads that were already below the old threshold?"
+  relevant_docs:
+    - corpus/meridian/lead-scoring-model.md
+- id: m25
+  question: "How many records does the mobile app cache for offline use?"
+  relevant_docs:
+    - corpus/meridian/mobile-app-offline-mode.md
+- id: m26
+  question: "If a viewer lacks permission to see certain deals, what do they see on a shared dashboard widget built from those deals?"
+  relevant_docs:
+    - corpus/meridian/reporting-dashboards.md
+- id: m27
+  question: "What are the four built-in roles that ship with Meridian?"
+  relevant_docs:
+    - corpus/meridian/role-based-permissions.md
+- id: m28
+  question: "Are contacts who unsubscribed from a previous campaign ever included in a later campaign's recipient list?"
+  relevant_docs:
+    - corpus/meridian/bulk-email-campaigns.md
+- id: m29
+  question: "How does calendar sync avoid attaching a meeting to the wrong contact when two contacts share a similar name?"
+  relevant_docs:
+    - corpus/meridian/integration-with-calendar.md
+- id: m30
+  question: "What permission scope does an API token inherit when it is created?"
+  relevant_docs:
+    - corpus/meridian/api-authentication-tokens.md

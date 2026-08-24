@@ -225,12 +225,12 @@ T31 → T32
 
 **Done when**:
 
-- [ ] 30 perguntas em `eval/golden/meridian.yaml`, cada uma com ao menos um documento relevante anotado
-- [ ] Ao menos 10 perguntas incidem sobre os assuntos de sobreposição — são as que mais pressionam o isolamento
-- [ ] Teste falha se alguma pergunta referenciar documento inexistente
-- [ ] Teste falha se o conjunto não tiver exatamente 30 perguntas
-- [ ] Gate check passa: `uv run pytest tests/unit -q`
-- [ ] Test count: 3 testes passam (sem deleções silenciosas)
+- [x] 30 perguntas em `eval/golden/meridian.yaml`, cada uma com ao menos um documento relevante anotado
+- [x] Ao menos 10 perguntas incidem sobre os assuntos de sobreposição — são as que mais pressionam o isolamento
+- [x] Teste falha se alguma pergunta referenciar documento inexistente
+- [x] Teste falha se o conjunto não tiver exatamente 30 perguntas
+- [x] Gate check passa: `uv run pytest tests/unit -q`
+- [x] Test count: 3 testes passam (sem deleções silenciosas)
 
 **Tests**: unit
 **Gate**: quick
