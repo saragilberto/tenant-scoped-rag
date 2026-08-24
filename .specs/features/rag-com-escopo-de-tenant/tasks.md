@@ -530,11 +530,11 @@ T31 → T32
 
 **Done when**:
 
-- [ ] A recall@5 da busca escopada não é inferior à da base de tenant único além da margem declarada no teste
-- [ ] A falha reporta o número medido, não apenas "falhou"
-- [ ] Nenhum papel com `BYPASSRLS` é usado — a comparação é entre bancos
-- [ ] Gate check passa: `uv run pytest tests/unit tests/integration tests/isolation -q`
-- [ ] Test count: 3 testes passam (sem deleções silenciosas)
+- [x] A recall@5 da busca escopada não é inferior à da base de tenant único além da margem declarada no teste
+- [x] A falha reporta o número medido, não apenas "falhou"
+- [x] Nenhum papel com `BYPASSRLS` é usado — a comparação é entre bancos
+- [x] Gate check passa: `uv run pytest tests/unit tests/integration tests/isolation -q`
+- [x] Test count: 3 testes passam (sem deleções silenciosas)
 
 **Tests**: integration
 **Gate**: full
