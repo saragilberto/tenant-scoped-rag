@@ -1629,6 +1629,7 @@ dependencies = [
     { name = "psycopg", extra = ["binary"] },
     { name = "pyyaml" },
     { name = "sentence-transformers" },
+    { name = "transformers" },
 ]
 
 [package.dev-dependencies]
@@ -1644,6 +1645,7 @@ requires-dist = [
     { name = "psycopg", extras = ["binary"], specifier = ">=3.2" },
     { name = "pyyaml", specifier = ">=6.0" },
     { name = "sentence-transformers", specifier = ">=3.3" },
+    { name = "transformers", specifier = ">=4.40" },
 ]
 
 [package.metadata.requires-dev]

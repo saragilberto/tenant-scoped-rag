@@ -398,12 +398,12 @@ T31 → T32
 
 **Done when**:
 
-- [ ] Documento com títulos gera chunks nas fronteiras de seção, sem overlap (RAG-03)
-- [ ] Documento sem títulos gera chunks de tamanho fixo com 15% de overlap (RAG-04)
-- [ ] Documento sem títulos maior que um chunk não perde texto nas fronteiras (edge case da spec)
-- [ ] Os dois perfis (512 e 1024) produzem contagens diferentes sobre o mesmo documento
-- [ ] Gate check passa: `uv run pytest tests/unit -q`
-- [ ] Test count: 6 testes passam (sem deleções silenciosas)
+- [x] Documento com títulos gera chunks nas fronteiras de seção, sem overlap (RAG-03)
+- [x] Documento sem títulos gera chunks de tamanho fixo com 15% de overlap (RAG-04)
+- [x] Documento sem títulos maior que um chunk não perde texto nas fronteiras (edge case da spec)
+- [x] Os dois perfis (512 e 1024) produzem contagens diferentes sobre o mesmo documento
+- [x] Gate check passa: `uv run pytest tests/unit -q`
+- [x] Test count: 6 testes passam (sem deleções silenciosas)
 
 **Tests**: unit
 **Gate**: quick
