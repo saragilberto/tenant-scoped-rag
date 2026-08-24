@@ -6,9 +6,12 @@ widen or disable that scope - a client has no argument to forge because none exi
 """
 
 import uuid
-from typing import Literal
+from typing import Annotated, Literal
 
+import psycopg
 from mcp.server import MCPServer
+from mcp.server.mcpserver.exceptions import ToolError
+from pydantic import Field, StringConstraints
 
 from rag import db
 from rag.chunking import ChunkProfile
@@ -22,6 +25,17 @@ _PROFILE = ChunkProfile.P512
 _MAX_QUERY_CHARS = 2000
 _MIN_TOP_K = 1
 _MAX_TOP_K = 50
+
+# Schema-level constraints, not just the manual checks below: the SDK validates arguments
+# against these before the tool body ever runs, and a rejection at that layer keeps the
+# specific reason ("top_k must be...") in what the client sees. A bare exception raised
+# from inside the tool body is treated as a crash and replaced with a generic message -
+# `_validate_query`/`_validate_top_k` stay as a second line of defense for direct callers
+# (this module's own tests included), who bypass argument validation entirely.
+Query = Annotated[
+    str, StringConstraints(strip_whitespace=True, min_length=1, max_length=_MAX_QUERY_CHARS)
+]
+TopK = Annotated[int, Field(ge=_MIN_TOP_K, le=_MAX_TOP_K)]
 
 _NOT_FOUND = {"found": False}
 
@@ -69,13 +83,16 @@ def _candidate_to_dict(candidate: Candidate) -> dict:
 
 
 @mcp.tool()
-def search(query: str, mode: Mode = "hybrid", top_k: int = 5) -> list[dict]:
+def search(query: Query, mode: Mode = "hybrid", top_k: TopK = 5) -> list[dict]:
     """Search the active tenant's corpus. Never accepts a scope parameter (RAG-16)."""
     query = _validate_query(query)
     top_k = _validate_top_k(top_k)
     mode = _validate_mode(mode)
-    with db.scoped_connection(_tenant()) as conn:
-        candidates = _SEARCH_MODULES[mode].search(conn, query, top_k, _PROFILE)
+    try:
+        with db.scoped_connection(_tenant()) as conn:
+            candidates = _SEARCH_MODULES[mode].search(conn, query, top_k, _PROFILE)
+    except psycopg.OperationalError as exc:
+        raise ToolError(f"database is unreachable: {exc}") from exc
     return [_candidate_to_dict(c) for c in candidates]
 
 
