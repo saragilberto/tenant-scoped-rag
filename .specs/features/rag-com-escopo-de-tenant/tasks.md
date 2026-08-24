@@ -659,11 +659,11 @@ T31 → T32
 
 **Done when**:
 
-- [ ] As 60 perguntas rodam contra a identidade oposta nos três modos, e nenhum chunk do tenant de origem aparece (RAG-18)
-- [ ] Teste que injeta instrução maliciosa na `query` tentando alterar escopo — tratada como texto de busca (RAG-20)
-- [ ] Teste que varre a assinatura das quatro tools e falha se qualquer parâmetro de escopo for introduzido (RAG-16)
-- [ ] Gate check passa: `uv run pytest tests/unit tests/integration tests/isolation -q`
-- [ ] Test count: 8 testes passam (sem deleções silenciosas)
+- [x] As 60 perguntas rodam contra a identidade oposta nos três modos, e nenhum chunk do tenant de origem aparece (RAG-18)
+- [x] Teste que injeta instrução maliciosa na `query` tentando alterar escopo — tratada como texto de busca (RAG-20)
+- [x] Teste que varre a assinatura das quatro tools e falha se qualquer parâmetro de escopo for introduzido (RAG-16)
+- [x] Gate check passa: `uv run pytest tests/unit tests/integration tests/isolation -q`
+- [x] Test count: 8 testes passam (sem deleções silenciosas)
 
 **Tests**: integration
 **Gate**: full
