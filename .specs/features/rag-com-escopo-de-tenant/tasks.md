@@ -142,10 +142,10 @@ T31 → T32
 
 **Done when**:
 
-- [ ] `uv sync` resolve sem conflito
-- [ ] Entry points `ingest`, `rag-server` e `rag-eval` declarados
-- [ ] `ruff` configurado para lint e format
-- [ ] Gate check passa: `uv run ruff check . && uv run ruff format --check . && uv run pytest -q`
+- [x] `uv sync` resolve sem conflito
+- [x] Entry points `ingest`, `rag-server` e `rag-eval` declarados
+- [x] `ruff` configurado para lint e format
+- [x] Gate check passa: `uv run ruff check . && uv run ruff format --check . && uv run pytest -q`
 
 **Tests**: none
 **Gate**: build
