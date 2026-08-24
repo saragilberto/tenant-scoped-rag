@@ -5,7 +5,12 @@ from conftest import ADMIN_DSN, zero_vector_literal
 
 
 def test_vector_search_uses_partial_hnsw_index_for_profile(admin_conn):
+    # enable_sort is also disabled: with a small, now-populated table (corpus/meridian +
+    # corpus/halcyon ingested by Phase 4), a plain Sort can look cheaper to the planner than
+    # the HNSW index at this row count. Disabling both leaves the index as the only viable
+    # plan, which is what this test is actually asserting exists and is usable.
     admin_conn.execute("SET LOCAL enable_seqscan = off")
+    admin_conn.execute("SET LOCAL enable_sort = off")
     rows = admin_conn.execute(
         "EXPLAIN SELECT id FROM chunks WHERE profile = 'P512' "
         "ORDER BY embedding <=> %s::vector LIMIT 5",

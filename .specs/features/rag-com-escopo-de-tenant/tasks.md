@@ -466,12 +466,12 @@ T31 → T32
 
 **Done when**:
 
-- [ ] Consulta é prefixada com `query: ` e ordenada por `<=>` (RAG-07)
-- [ ] Com escopo ativo e havendo ao menos `top_k` chunks no escopo, devolve exatamente `top_k` (RAG-10)
-- [ ] Consulta sem correspondência devolve lista vazia, nunca o chunk menos ruim (edge case da spec)
-- [ ] `Candidate` preserva score e posição, para alimentar `explain_retrieval`
-- [ ] Gate check passa: `uv run pytest tests/unit tests/integration tests/isolation -q`
-- [ ] Test count: 5 testes passam (sem deleções silenciosas)
+- [x] Consulta é prefixada com `query: ` e ordenada por `<=>` (RAG-07)
+- [x] Com escopo ativo e havendo ao menos `top_k` chunks no escopo, devolve exatamente `top_k` (RAG-10)
+- [x] Consulta sem correspondência devolve lista vazia, nunca o chunk menos ruim (edge case da spec)
+- [x] `Candidate` preserva score e posição, para alimentar `explain_retrieval`
+- [x] Gate check passa: `uv run pytest tests/unit tests/integration tests/isolation -q`
+- [x] Test count: 5 testes passam (sem deleções silenciosas)
 
 **Tests**: integration
 **Gate**: full
