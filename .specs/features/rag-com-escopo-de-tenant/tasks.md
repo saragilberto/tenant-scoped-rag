@@ -420,12 +420,12 @@ T31 → T32
 
 **Done when**:
 
-- [ ] `embed_passages` prefixa `passage: ` em todo texto antes de gerar vetor (RAG-06)
-- [ ] `embed_query` prefixa `query: ` (RAG-07)
-- [ ] Vetores têm 768 dimensões
-- [ ] Revisão do modelo fixada; ausência de rede na primeira execução falha com mensagem explícita
-- [ ] Gate check passa: `uv run pytest tests/unit -q`
-- [ ] Test count: 5 testes passam (sem deleções silenciosas)
+- [x] `embed_passages` prefixa `passage: ` em todo texto antes de gerar vetor (RAG-06)
+- [x] `embed_query` prefixa `query: ` (RAG-07)
+- [x] Vetores têm 768 dimensões
+- [x] Revisão do modelo fixada; ausência de rede na primeira execução falha com mensagem explícita
+- [x] Gate check passa: `uv run pytest tests/unit -q`
+- [x] Test count: 5 testes passam (sem deleções silenciosas)
 
 **Tests**: unit
 **Gate**: quick
