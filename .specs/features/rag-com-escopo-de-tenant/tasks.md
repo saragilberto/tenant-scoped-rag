@@ -354,11 +354,11 @@ T31 → T32
 
 **Done when**:
 
-- [ ] `EXPLAIN` de busca vetorial com `profile='P512'` usa o índice parcial correspondente
-- [ ] `EXPLAIN` de busca léxica usa o índice GIN
-- [ ] `SHOW hnsw.iterative_scan` devolve `strict_order` numa conexão nova
-- [ ] Gate check passa: `uv run pytest tests/unit tests/integration tests/isolation -q`
-- [ ] Test count: 3 testes passam (sem deleções silenciosas)
+- [x] `EXPLAIN` de busca vetorial com `profile='P512'` usa o índice parcial correspondente
+- [x] `EXPLAIN` de busca léxica usa o índice GIN
+- [x] `SHOW hnsw.iterative_scan` devolve `strict_order` numa conexão nova
+- [x] Gate check passa: `uv run pytest tests/unit tests/integration tests/isolation -q`
+- [x] Test count: 3 testes passam (sem deleções silenciosas)
 
 **Tests**: integration
 **Gate**: full
