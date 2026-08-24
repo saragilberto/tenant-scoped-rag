@@ -131,6 +131,22 @@ def get_document(doc_id: str) -> dict:
     }
 
 
+@mcp.tool()
+def list_sources() -> list[dict]:
+    """List the active tenant's documents with each one's chunk count (RAG-26)."""
+    with db.scoped_connection(_tenant()) as conn:
+        rows = conn.execute(
+            """
+            SELECT d.id, d.titulo, count(c.id)
+            FROM documents d
+            LEFT JOIN chunks c ON c.document_id = d.id
+            GROUP BY d.id, d.titulo
+            ORDER BY d.titulo
+            """
+        ).fetchall()
+    return [{"doc_id": str(r[0]), "titulo": r[1], "chunk_count": r[2]} for r in rows]
+
+
 def main() -> None:
     """Resolve the tenant and start serving. RAG-17: exits here, before any tool is
     ever announced, if the tenant environment variable is missing/empty/unknown."""

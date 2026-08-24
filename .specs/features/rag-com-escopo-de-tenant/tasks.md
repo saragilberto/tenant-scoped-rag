@@ -618,10 +618,10 @@ T31 → T32
 
 **Done when**:
 
-- [ ] Lista somente documentos do escopo ativo (RAG-26)
-- [ ] Base vazia devolve lista vazia sem revelar que o outro tenant tem conteúdo (edge case da spec)
-- [ ] Gate check passa: `uv run pytest tests/unit tests/integration tests/isolation -q`
-- [ ] Test count: 3 testes passam (sem deleções silenciosas)
+- [x] Lista somente documentos do escopo ativo (RAG-26)
+- [x] Base vazia devolve lista vazia sem revelar que o outro tenant tem conteúdo (edge case da spec)
+- [x] Gate check passa: `uv run pytest tests/unit tests/integration tests/isolation -q`
+- [x] Test count: 3 testes passam (sem deleções silenciosas)
 
 **Tests**: integration
 **Gate**: full
