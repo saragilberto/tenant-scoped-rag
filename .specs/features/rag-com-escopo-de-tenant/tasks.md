@@ -488,11 +488,11 @@ T31 → T32
 
 **Done when**:
 
-- [ ] Ordenação por `ts_rank_cd`, usando o índice GIN
-- [ ] Termo acentuado encontra o documento não acentuado e vice-versa
-- [ ] Escopo respeitado: consulta de um tenant não alcança chunk do outro
-- [ ] Gate check passa: `uv run pytest tests/unit tests/integration tests/isolation -q`
-- [ ] Test count: 4 testes passam (sem deleções silenciosas)
+- [x] Ordenação por `ts_rank_cd`, usando o índice GIN
+- [x] Termo acentuado encontra o documento não acentuado e vice-versa
+- [x] Escopo respeitado: consulta de um tenant não alcança chunk do outro
+- [x] Gate check passa: `uv run pytest tests/unit tests/integration tests/isolation -q`
+- [x] Test count: 4 testes passam (sem deleções silenciosas)
 
 **Tests**: integration
 **Gate**: full
