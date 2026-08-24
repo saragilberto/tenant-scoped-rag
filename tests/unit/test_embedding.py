@@ -26,9 +26,7 @@ def _clear_model_cache():
 
 def test_embed_passages_prefixes_every_text_with_passage(monkeypatch):
     stub = _StubModel()
-    monkeypatch.setattr(
-        "sentence_transformers.SentenceTransformer", lambda *a, **kw: stub
-    )
+    monkeypatch.setattr("sentence_transformers.SentenceTransformer", lambda *a, **kw: stub)
 
     embedding.embed_passages(["reset your password", "import a CSV file"])
 
@@ -37,9 +35,7 @@ def test_embed_passages_prefixes_every_text_with_passage(monkeypatch):
 
 def test_embed_query_prefixes_text_with_query(monkeypatch):
     stub = _StubModel()
-    monkeypatch.setattr(
-        "sentence_transformers.SentenceTransformer", lambda *a, **kw: stub
-    )
+    monkeypatch.setattr("sentence_transformers.SentenceTransformer", lambda *a, **kw: stub)
 
     embedding.embed_query("how do I reset my password?")
 

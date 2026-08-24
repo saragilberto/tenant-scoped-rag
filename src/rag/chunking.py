@@ -9,7 +9,7 @@ at embedding time.
 import math
 import re
 from dataclasses import dataclass
-from enum import Enum
+from enum import StrEnum
 from functools import lru_cache
 
 _HEADING_RE = re.compile(r"(?m)^#{1,6}[ \t]+\S")
@@ -19,7 +19,7 @@ _OVERLAP_RATIO = 0.15
 __all__ = ["Chunk", "ChunkProfile", "has_structure", "split"]
 
 
-class ChunkProfile(str, Enum):
+class ChunkProfile(StrEnum):
     P512 = "P512"
     P1024 = "P1024"
 

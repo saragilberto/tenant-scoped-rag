@@ -13,3 +13,7 @@ __pycache__/
 
 # Local model cache (sentence-transformers / HuggingFace)
 .cache/
+
+# Skill tooling scaffolding materialized into the working directory, not project source
+.claude/
+.agents/

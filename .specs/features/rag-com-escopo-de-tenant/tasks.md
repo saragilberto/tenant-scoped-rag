@@ -551,11 +551,11 @@ T31 → T32
 
 **Done when**:
 
-- [ ] Com a flag ativa, reordena antes do corte em `top_k` (RAG-32)
-- [ ] Desligado por padrão (RAG-33)
-- [ ] Flag ativa e modelo ausente falha com mensagem explícita, nunca devolve a ordem não reordenada (RAG-34)
-- [ ] Gate check passa: `uv run pytest tests/unit tests/integration tests/isolation -q`
-- [ ] Test count: 4 testes passam (sem deleções silenciosas)
+- [x] Com a flag ativa, reordena antes do corte em `top_k` (RAG-32)
+- [x] Desligado por padrão (RAG-33)
+- [x] Flag ativa e modelo ausente falha com mensagem explícita, nunca devolve a ordem não reordenada (RAG-34)
+- [x] Gate check passa: `uv run pytest tests/unit tests/integration tests/isolation -q`
+- [x] Test count: 4 testes passam (sem deleções silenciosas)
 
 **Tests**: integration
 **Gate**: full

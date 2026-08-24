@@ -7,8 +7,8 @@ from pathlib import Path
 
 import psycopg
 import pytest
+from conftest import dsn_for, set_tenant
 
-from conftest import ADMIN_DSN, dsn_for, set_tenant
 from rag.chunking import ChunkProfile
 from rag.ingest import ingest
 
@@ -129,7 +129,16 @@ def test_cli_exits_nonzero_when_a_file_fails(tmp_path, cleanup_documents):
     cleanup_documents.append(str(good_path))
 
     result = subprocess.run(
-        [sys.executable, "-m", "rag.ingest", str(tmp_path), "--tenant", "meridian", "--profile", "512"],
+        [
+            sys.executable,
+            "-m",
+            "rag.ingest",
+            str(tmp_path),
+            "--tenant",
+            "meridian",
+            "--profile",
+            "512",
+        ],
         cwd=Path(__file__).resolve().parents[2] / "src",
         capture_output=True,
         text=True,

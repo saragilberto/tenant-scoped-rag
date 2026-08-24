@@ -127,7 +127,15 @@ def _ingest_file(
                 INSERT INTO chunks (id, document_id, tenant_id, profile, ord, texto, embedding)
                 VALUES (%s, %s, %s, %s, %s, %s, %s)
                 """,
-                (uuid.uuid4(), document_id, tenant_id, profile.value, chunk.ord, chunk.text, vector),
+                (
+                    uuid.uuid4(),
+                    document_id,
+                    tenant_id,
+                    profile.value,
+                    chunk.ord,
+                    chunk.text,
+                    vector,
+                ),
             )
 
     report.documents_written += 1
