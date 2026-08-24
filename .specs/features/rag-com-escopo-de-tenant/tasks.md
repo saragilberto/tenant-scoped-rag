@@ -598,10 +598,10 @@ T31 → T32
 
 **Done when**:
 
-- [ ] Documento do escopo devolve texto original íntegro e metadados (RAG-24)
-- [ ] `doc_id` inexistente e `doc_id` do outro tenant produzem resposta **byte a byte idêntica** (RAG-25)
-- [ ] Gate check passa: `uv run pytest tests/unit tests/integration tests/isolation -q`
-- [ ] Test count: 4 testes passam (sem deleções silenciosas)
+- [x] Documento do escopo devolve texto original íntegro e metadados (RAG-24)
+- [x] `doc_id` inexistente e `doc_id` do outro tenant produzem resposta **byte a byte idêntica** (RAG-25)
+- [x] Gate check passa: `uv run pytest tests/unit tests/integration tests/isolation -q`
+- [x] Test count: 4 testes passam (sem deleções silenciosas)
 
 **Tests**: integration
 **Gate**: full

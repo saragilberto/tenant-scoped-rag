@@ -5,6 +5,7 @@ cached for the life of the process. No tool accepts a parameter that could chang
 widen or disable that scope - a client has no argument to forge because none exists.
 """
 
+import uuid
 from typing import Literal
 
 from mcp.server import MCPServer
@@ -21,6 +22,8 @@ _PROFILE = ChunkProfile.P512
 _MAX_QUERY_CHARS = 2000
 _MIN_TOP_K = 1
 _MAX_TOP_K = 50
+
+_NOT_FOUND = {"found": False}
 
 _active_tenant: str | None = None
 
@@ -74,6 +77,41 @@ def search(query: str, mode: Mode = "hybrid", top_k: int = 5) -> list[dict]:
     with db.scoped_connection(_tenant()) as conn:
         candidates = _SEARCH_MODULES[mode].search(conn, query, top_k, _PROFILE)
     return [_candidate_to_dict(c) for c in candidates]
+
+
+@mcp.tool()
+def get_document(doc_id: str) -> dict:
+    """Return the original document text and metadata, scoped to the active tenant.
+
+    An unknown id and an id that belongs to another tenant produce the identical
+    not-found response (RAG-25) - RLS already hides the other tenant's row, so both
+    cases reach this function as "no matching row" and there is nothing left here
+    that could tell them apart.
+    """
+    try:
+        uuid.UUID(doc_id)
+    except ValueError:
+        return _NOT_FOUND
+    with db.scoped_connection(_tenant()) as conn:
+        row = conn.execute(
+            """
+            SELECT id, titulo, categoria, versao, visibilidade, texto_original
+            FROM documents
+            WHERE id = %s
+            """,
+            (doc_id,),
+        ).fetchone()
+    if row is None:
+        return _NOT_FOUND
+    return {
+        "found": True,
+        "doc_id": str(row[0]),
+        "titulo": row[1],
+        "categoria": row[2],
+        "versao": row[3],
+        "visibilidade": row[4],
+        "texto": row[5],
+    }
 
 
 def main() -> None:
