@@ -247,11 +247,11 @@ T31 → T32
 
 **Done when**:
 
-- [ ] 30 perguntas em `eval/golden/halcyon.yaml`, com ao menos 10 sobre os assuntos de sobreposição
-- [ ] Teste falha se alguma pergunta referenciar documento do **outro** tenant — anotação errada inverteria o resultado da suíte de isolamento
-- [ ] As asserções de T6 valem para os dois conjuntos
-- [ ] Gate check passa: `uv run pytest tests/unit -q`
-- [ ] Test count: 5 testes passam (sem deleções silenciosas)
+- [x] 30 perguntas em `eval/golden/halcyon.yaml`, com ao menos 10 sobre os assuntos de sobreposição
+- [x] Teste falha se alguma pergunta referenciar documento do **outro** tenant — anotação errada inverteria o resultado da suíte de isolamento
+- [x] As asserções de T6 valem para os dois conjuntos
+- [x] Gate check passa: `uv run pytest tests/unit -q`
+- [x] Test count: 5 testes passam (sem deleções silenciosas)
 
 **Tests**: unit
 **Gate**: quick

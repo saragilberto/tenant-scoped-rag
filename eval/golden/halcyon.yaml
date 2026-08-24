@@ -1,0 +1,123 @@
+# Golden set for tenant "halcyon" (billing). 30 hand-written questions with annotated relevant
+# documents. Each question also runs under the "meridian" identity in the isolation suite, where
+# the expected result is zero chunks (RAG-18) — see tests/isolation/test_cross_tenant.py.
+- id: h01
+  question: "Why is a billing admin account locked out for longer than a regular member after failed sign-ins?"
+  relevant_docs:
+    - corpus/halcyon/login-error.md
+- id: h02
+  question: "Why does the wrong-workspace-slug page not confirm whether that slug belongs to another customer?"
+  relevant_docs:
+    - corpus/halcyon/login-error.md
+- id: h03
+  question: "What happens to a customer import row with a missing or unsupported currency code?"
+  relevant_docs:
+    - corpus/halcyon/csv-import.md
+- id: h04
+  question: "What fields determine whether an imported row matches an existing customer?"
+  relevant_docs:
+    - corpus/halcyon/csv-import.md
+- id: h05
+  question: "How long is the grace period for a newly promoted billing admin to set up two-factor authentication?"
+  relevant_docs:
+    - corpus/halcyon/two-factor-auth.md
+- id: h06
+  question: "Does regenerating two-factor backup codes require a current authenticator code?"
+  relevant_docs:
+    - corpus/halcyon/two-factor-auth.md
+- id: h07
+  question: "Why is the Halcyon API rate limit lower than many other billing APIs?"
+  relevant_docs:
+    - corpus/halcyon/api-rate-limits.md
+- id: h08
+  question: "What is the separate rate limit for creating invoices through the API?"
+  relevant_docs:
+    - corpus/halcyon/api-rate-limits.md
+- id: h09
+  question: "Are voided invoices silently dropped from a bulk invoice export?"
+  relevant_docs:
+    - corpus/halcyon/invoice-export.md
+- id: h10
+  question: "How many times is a failing webhook endpoint retried and on what schedule?"
+  relevant_docs:
+    - corpus/halcyon/webhooks.md
+- id: h11
+  question: "Can a workspace run both SAML and OpenID Connect for SSO at the same time?"
+  relevant_docs:
+    - corpus/halcyon/sso-setup.md
+- id: h12
+  question: "How long are Halcyon's billing audit log entries retained?"
+  relevant_docs:
+    - corpus/halcyon/log-retention.md
+- id: h13
+  question: "Can a subscription plan's base price be changed once a customer is subscribed to it?"
+  relevant_docs:
+    - corpus/halcyon/creating-a-subscription-plan.md
+- id: h14
+  question: "What happens to a plan once it has no active subscribers?"
+  relevant_docs:
+    - corpus/halcyon/creating-a-subscription-plan.md
+- id: h15
+  question: "Does downgrading a plan mid-cycle issue a cash refund or a credit?"
+  relevant_docs:
+    - corpus/halcyon/proration-rules.md
+- id: h16
+  question: "Are metered usage components ever prorated on a plan change?"
+  relevant_docs:
+    - corpus/halcyon/proration-rules.md
+- id: h17
+  question: "What happens automatically after all dunning retries fail and the grace period ends?"
+  relevant_docs:
+    - corpus/halcyon/dunning-management.md
+- id: h18
+  question: "Can a customer notification be disabled for a single dunning retry attempt?"
+  relevant_docs:
+    - corpus/halcyon/dunning-management.md
+- id: h19
+  question: "What is shown on an invoice for a tax-exempt customer?"
+  relevant_docs:
+    - corpus/halcyon/tax-configuration.md
+- id: h20
+  question: "How long does Halcyon keep a customer's previous payment method after a new one is added?"
+  relevant_docs:
+    - corpus/halcyon/payment-method-updates.md
+- id: h21
+  question: "How is tax recalculated when only part of an invoice is refunded?"
+  relevant_docs:
+    - corpus/halcyon/refund-processing.md
+- id: h22
+  question: "Can a customer's billing currency be changed after they are created?"
+  relevant_docs:
+    - corpus/halcyon/multi-currency-billing.md
+- id: h23
+  question: "What aggregation methods can a usage metric use over a billing period?"
+  relevant_docs:
+    - corpus/halcyon/usage-based-billing-metering.md
+- id: h24
+  question: "What happens to a usage event reported after its billing period has already been invoiced?"
+  relevant_docs:
+    - corpus/halcyon/usage-based-billing-metering.md
+- id: h25
+  question: "Does changing the invoice template affect invoices that were already issued?"
+  relevant_docs:
+    - corpus/halcyon/invoice-customization-templates.md
+- id: h26
+  question: "Can a credit note be converted back into a cash refund?"
+  relevant_docs:
+    - corpus/halcyon/credit-notes.md
+- id: h27
+  question: "What happens to a subscription automatically when one of its invoices receives a chargeback?"
+  relevant_docs:
+    - corpus/halcyon/chargeback-handling.md
+- id: h28
+  question: "Once a read-only API key is issued, can it later be upgraded to read-write?"
+  relevant_docs:
+    - corpus/halcyon/api-authentication-tokens.md
+- id: h29
+  question: "What happens if a subscription is reactivated more than thirty days after cancellation?"
+  relevant_docs:
+    - corpus/halcyon/subscription-cancellation-flow.md
+- id: h30
+  question: "Which built-in role is the only one that can issue refunds or credit notes?"
+  relevant_docs:
+    - corpus/halcyon/role-based-permissions.md

@@ -63,3 +63,32 @@ def test_meridian_overlap_coverage_at_least_10():
         f"expected >= {MIN_OVERLAP_QUESTIONS} meridian questions on overlap subjects, "
         f"found {overlap_question_count}"
     )
+
+
+def test_halcyon_references_resolve_and_never_point_to_meridian():
+    questions = _load("halcyon")
+    for doc_path in _relevant_doc_paths(questions):
+        assert (REPO_ROOT / doc_path).is_file(), (
+            f"golden set references missing document: {doc_path}"
+        )
+        assert doc_path.startswith("corpus/halcyon/"), (
+            f"halcyon golden set references a document outside its own tenant: {doc_path}"
+        )
+
+
+def test_halcyon_has_30_questions_with_overlap_coverage_at_least_10():
+    questions = _load("halcyon")
+    assert len(questions) == EXPECTED_QUESTION_COUNT, (
+        f"expected exactly {EXPECTED_QUESTION_COUNT} halcyon questions, found {len(questions)}"
+    )
+    for question in questions:
+        assert question["relevant_docs"], f"{question['id']} has no relevant documents annotated"
+    overlap_question_count = sum(
+        1
+        for q in questions
+        if any(Path(doc).name in OVERLAP_SUBJECT_FILENAMES for doc in q["relevant_docs"])
+    )
+    assert overlap_question_count >= MIN_OVERLAP_QUESTIONS, (
+        f"expected >= {MIN_OVERLAP_QUESTIONS} halcyon questions on overlap subjects, "
+        f"found {overlap_question_count}"
+    )
