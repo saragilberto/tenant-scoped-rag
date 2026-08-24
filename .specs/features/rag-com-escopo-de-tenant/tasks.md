@@ -509,11 +509,11 @@ T31 → T32
 
 **Done when**:
 
-- [ ] Fusão usa posições, não os scores brutos das duas escalas (RAG-09)
-- [ ] Documento fora do top-3 de ambos os rankings isolados pode aparecer no top-3 fundido
-- [ ] Escopo respeitado nos dois rankings de origem
-- [ ] Gate check passa: `uv run pytest tests/unit tests/integration tests/isolation -q`
-- [ ] Test count: 5 testes passam (sem deleções silenciosas)
+- [x] Fusão usa posições, não os scores brutos das duas escalas (RAG-09)
+- [x] Documento fora do top-3 de ambos os rankings isolados pode aparecer no top-3 fundido
+- [x] Escopo respeitado nos dois rankings de origem
+- [x] Gate check passa: `uv run pytest tests/unit tests/integration tests/isolation -q`
+- [x] Test count: 5 testes passam (sem deleções silenciosas)
 
 **Tests**: integration
 **Gate**: full
