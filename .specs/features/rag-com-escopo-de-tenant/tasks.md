@@ -203,12 +203,12 @@ T31 → T32
 
 **Done when**:
 
-- [ ] Ao menos 20 artigos em `corpus/halcyon/`, cobrindo os mesmos 8 assuntos com solução e vocabulário distintos
-- [ ] Teste falha se algum dos 8 assuntos não tiver artigo nos **dois** tenants
-- [ ] Teste falha se houver trecho de 12+ palavras idêntico entre os dois corpora — a sobreposição é de assunto, nunca de texto
-- [ ] As asserções de front-matter e de ausência de dado real de T4 valem também para este corpus
-- [ ] Gate check passa: `uv run pytest tests/unit -q`
-- [ ] Test count: 7 testes passam (sem deleções silenciosas)
+- [x] Ao menos 20 artigos em `corpus/halcyon/`, cobrindo os mesmos 8 assuntos com solução e vocabulário distintos
+- [x] Teste falha se algum dos 8 assuntos não tiver artigo nos **dois** tenants
+- [x] Teste falha se houver trecho de 12+ palavras idêntico entre os dois corpora — a sobreposição é de assunto, nunca de texto
+- [x] As asserções de front-matter e de ausência de dado real de T4 valem também para este corpus
+- [x] Gate check passa: `uv run pytest tests/unit -q`
+- [x] Test count: 7 testes passam (sem deleções silenciosas)
 
 **Tests**: unit
 **Gate**: quick
