@@ -724,11 +724,11 @@ T31 → T32
 
 **Done when**:
 
-- [ ] Executa as 60 perguntas escopadas, cada uma sob a identidade correta (RAG-29)
-- [ ] Duas execuções sobre a mesma base produzem números idênticos
-- [ ] Nenhuma chamada a serviço externo em nenhum caminho de execução
-- [ ] Gate check passa: `uv run pytest tests/unit tests/integration tests/isolation -q`
-- [ ] Test count: 4 testes passam (sem deleções silenciosas)
+- [x] Executa as 60 perguntas escopadas, cada uma sob a identidade correta (RAG-29)
+- [x] Duas execuções sobre a mesma base produzem números idênticos
+- [x] Nenhuma chamada a serviço externo em nenhum caminho de execução
+- [x] Gate check passa: `uv run pytest tests/unit tests/integration tests/isolation -q`
+- [x] Test count: 4 testes passam (sem deleções silenciosas)
 
 **Tests**: integration
 **Gate**: full
