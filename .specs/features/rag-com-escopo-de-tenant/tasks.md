@@ -375,11 +375,11 @@ T31 → T32
 
 **Done when**:
 
-- [ ] `scoped_connection` aplica `SET LOCAL` dentro da transação e conecta como `rag_app`
-- [ ] `resolve_tenant_from_env` encerra com mensagem explícita quando a variável está ausente, vazia ou desconhecida (RAG-17)
-- [ ] Teste afirma que o módulo não exporta nenhum outro construtor de conexão — não há caminho para consultar fora do escopo
-- [ ] Gate check passa: `uv run pytest tests/unit tests/integration tests/isolation -q`
-- [ ] Test count: 5 testes passam (sem deleções silenciosas)
+- [x] `scoped_connection` aplica `SET LOCAL` dentro da transação e conecta como `rag_app`
+- [x] `resolve_tenant_from_env` encerra com mensagem explícita quando a variável está ausente, vazia ou desconhecida (RAG-17)
+- [x] Teste afirma que o módulo não exporta nenhum outro construtor de conexão — não há caminho para consultar fora do escopo
+- [x] Gate check passa: `uv run pytest tests/unit tests/integration tests/isolation -q`
+- [x] Test count: 5 testes passam (sem deleções silenciosas)
 
 **Tests**: integration
 **Gate**: full
