@@ -272,9 +272,9 @@ Escopo Complex: cada dimensão resolve em requisito ou em `N/A` justificado.
 | RAG-29 | P2: Tabela de ablação reprodutível | Design | In Tasks |
 | RAG-30 | P2: Tabela de ablação reprodutível | Design | In Tasks |
 | RAG-31 | P2: Tabela de ablação reprodutível | Design | In Tasks |
-| RAG-32 | P3: Reranking opcional | - | In Tasks |
-| RAG-33 | P3: Reranking opcional | - | In Tasks |
-| RAG-34 | P3: Reranking opcional | - | In Tasks |
+| RAG-32 | P3: Reranking opcional | T21 | Done |
+| RAG-33 | P3: Reranking opcional | T21 | Done |
+| RAG-34 | P3: Reranking opcional | T21 | Done |
 
 **ID format:** `RAG-[NÚMERO]`
 
