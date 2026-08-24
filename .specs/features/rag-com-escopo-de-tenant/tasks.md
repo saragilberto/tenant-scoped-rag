@@ -332,12 +332,12 @@ T31 → T32
 
 **Done when**:
 
-- [ ] RLS habilitada nas duas tabelas, verificada em `pg_class.relrowsecurity`
-- [ ] Como `rag_app` com `app.tenant_id='meridian'`, `SELECT count(*) FROM chunks` não enxerga linha de `halcyon`
-- [ ] Como `rag_ingest`, inserir chunk com `tenant_id` diferente do GUC é **rejeitado pelo banco**
-- [ ] Com `app.tenant_id` não definido, a leitura devolve zero linhas em vez de todas
-- [ ] Gate check passa: `uv run pytest tests/unit tests/integration tests/isolation -q`
-- [ ] Test count: 5 testes passam (sem deleções silenciosas)
+- [x] RLS habilitada nas duas tabelas, verificada em `pg_class.relrowsecurity`
+- [x] Como `rag_app` com `app.tenant_id='meridian'`, `SELECT count(*) FROM chunks` não enxerga linha de `halcyon`
+- [x] Como `rag_ingest`, inserir chunk com `tenant_id` diferente do GUC é **rejeitado pelo banco**
+- [x] Com `app.tenant_id` não definido, a leitura devolve zero linhas em vez de todas
+- [x] Gate check passa: `uv run pytest tests/unit tests/integration tests/isolation -q`
+- [x] Test count: 5 testes passam (sem deleções silenciosas)
 
 **Tests**: integration
 **Gate**: full
