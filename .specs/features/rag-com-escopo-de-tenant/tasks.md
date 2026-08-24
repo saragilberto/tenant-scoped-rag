@@ -703,11 +703,11 @@ T31 → T32
 
 **Done when**:
 
-- [ ] As quatro métricas conferem contra casos calculados à mão no próprio teste
-- [ ] Lista de resultados vazia e lista de relevantes vazia têm comportamento definido e testado
-- [ ] Nenhuma chamada de rede em nenhum caminho
-- [ ] Gate check passa: `uv run pytest tests/unit -q`
-- [ ] Test count: 10 testes passam (sem deleções silenciosas)
+- [x] As quatro métricas conferem contra casos calculados à mão no próprio teste
+- [x] Lista de resultados vazia e lista de relevantes vazia têm comportamento definido e testado
+- [x] Nenhuma chamada de rede em nenhum caminho
+- [x] Gate check passa: `uv run pytest tests/unit -q`
+- [x] Test count: 10 testes passam (sem deleções silenciosas)
 
 **Tests**: unit
 **Gate**: quick
