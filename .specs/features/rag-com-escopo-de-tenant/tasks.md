@@ -680,11 +680,11 @@ T31 → T32
 
 **Done when**:
 
-- [ ] Com a política removida, a suíte de isolamento fica vermelha (RAG-19)
-- [ ] A política é restaurada ao fim, e o banco principal nunca é tocado
-- [ ] O canário falha se a suíte de isolamento passar sem a política — verde é o estado de erro aqui
-- [ ] Gate check passa: `uv run pytest tests/unit tests/integration tests/isolation -q`
-- [ ] Test count: 2 testes passam (sem deleções silenciosas)
+- [x] Com a política removida, a suíte de isolamento fica vermelha (RAG-19)
+- [x] A política é restaurada ao fim, e o banco principal nunca é tocado
+- [x] O canário falha se a suíte de isolamento passar sem a política — verde é o estado de erro aqui
+- [x] Gate check passa: `uv run pytest tests/unit tests/integration tests/isolation -q`
+- [x] Test count: 2 testes passam (sem deleções silenciosas)
 
 **Tests**: integration
 **Gate**: full
