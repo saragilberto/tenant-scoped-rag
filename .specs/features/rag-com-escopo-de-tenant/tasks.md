@@ -638,11 +638,11 @@ T31 → T32
 
 **Done when**:
 
-- [ ] Cada candidato traz score por ranking, posição por ranking, score fundido e motivo do corte (RAG-27)
-- [ ] Nenhuma contagem, identificador ou campo revela candidato fora do escopo (RAG-28)
-- [ ] Teste executa a mesma pergunta sobre assunto compartilhado nos dois tenants e compara as respostas: nada em uma denuncia a existência da outra
-- [ ] Gate check passa: `uv run pytest tests/unit tests/integration tests/isolation -q`
-- [ ] Test count: 4 testes passam (sem deleções silenciosas)
+- [x] Cada candidato traz score por ranking, posição por ranking, score fundido e motivo do corte (RAG-27)
+- [x] Nenhuma contagem, identificador ou campo revela candidato fora do escopo (RAG-28)
+- [x] Teste executa a mesma pergunta sobre assunto compartilhado nos dois tenants e compara as respostas: nada em uma denuncia a existência da outra
+- [x] Gate check passa: `uv run pytest tests/unit tests/integration tests/isolation -q`
+- [x] Test count: 4 testes passam (sem deleções silenciosas)
 
 **Tests**: integration
 **Gate**: full

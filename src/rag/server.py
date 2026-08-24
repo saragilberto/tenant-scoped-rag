@@ -37,6 +37,9 @@ Query = Annotated[
 ]
 TopK = Annotated[int, Field(ge=_MIN_TOP_K, le=_MAX_TOP_K)]
 
+_EXPLAIN_POOL_SIZE = 50
+_RRF_K = 60
+
 _NOT_FOUND = {"found": False}
 
 _active_tenant: str | None = None
@@ -145,6 +148,65 @@ def list_sources() -> list[dict]:
             """
         ).fetchall()
     return [{"doc_id": str(r[0]), "titulo": r[1], "chunk_count": r[2]} for r in rows]
+
+
+@mcp.tool()
+def explain_retrieval(query: Query, mode: Mode = "hybrid", top_k: TopK = 5) -> list[dict]:
+    """Explain the fused ranking for a query: per-ranking score/position, fused
+    position, and why each candidate made the cut (RAG-27).
+
+    Only ever describes in-scope candidates: the semantic and lexical queries below
+    run through ``scoped_connection``, so RLS has already removed every other
+    tenant's row before either ranking is built - there is no out-of-scope candidate
+    left to omit, count, or otherwise leak a hint about (RAG-28).
+    """
+    query = _validate_query(query)
+    top_k = _validate_top_k(top_k)
+    mode = _validate_mode(mode)
+
+    try:
+        with db.scoped_connection(_tenant()) as conn:
+            semantic_results = semantic.search(conn, query, _EXPLAIN_POOL_SIZE, _PROFILE)
+            lexical_results = lexical.search(conn, query, _EXPLAIN_POOL_SIZE, _PROFILE)
+    except psycopg.OperationalError as exc:
+        raise ToolError(f"database is unreachable: {exc}") from exc
+
+    semantic_by_id = {c.chunk_id: c for c in semantic_results}
+    lexical_by_id = {c.chunk_id: c for c in lexical_results}
+
+    if mode == "semantic":
+        candidate_ids = list(semantic_by_id)
+    elif mode == "lexical":
+        candidate_ids = list(lexical_by_id)
+    else:
+        fused_scores: dict[str, float] = {}
+        for chunk_id in set(semantic_by_id) | set(lexical_by_id):
+            score = 0.0
+            if chunk_id in semantic_by_id:
+                score += 1.0 / (_RRF_K + semantic_by_id[chunk_id].position)
+            if chunk_id in lexical_by_id:
+                score += 1.0 / (_RRF_K + lexical_by_id[chunk_id].position)
+            fused_scores[chunk_id] = score
+        candidate_ids = sorted(fused_scores, key=lambda cid: fused_scores[cid], reverse=True)
+
+    explained = []
+    for rank, chunk_id in enumerate(candidate_ids[:top_k], start=1):
+        sem = semantic_by_id.get(chunk_id)
+        lex = lexical_by_id.get(chunk_id)
+        document_id = (sem or lex).document_id
+        explained.append(
+            {
+                "chunk_id": chunk_id,
+                "document_id": document_id,
+                "semantic_score": sem.score if sem else None,
+                "semantic_position": sem.position if sem else None,
+                "lexical_score": lex.score if lex else None,
+                "lexical_position": lex.position if lex else None,
+                "fused_position": rank,
+                "cutoff_reason": f"within top_k={top_k} of the {mode} ranking",
+            }
+        )
+    return explained
 
 
 def main() -> None:
