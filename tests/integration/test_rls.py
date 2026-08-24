@@ -4,7 +4,6 @@ import uuid
 
 import psycopg
 import pytest
-
 from conftest import set_tenant, zero_vector_literal
 
 
@@ -49,12 +48,8 @@ def seeded_chunk_pair(admin_conn_autocommit):
     try:
         yield {"meridian_chunk": chunk_m, "halcyon_chunk": chunk_h}
     finally:
-        admin_conn_autocommit.execute(
-            "DELETE FROM chunks WHERE id IN (%s, %s)", (chunk_m, chunk_h)
-        )
-        admin_conn_autocommit.execute(
-            "DELETE FROM documents WHERE id IN (%s, %s)", (doc_m, doc_h)
-        )
+        admin_conn_autocommit.execute("DELETE FROM chunks WHERE id IN (%s, %s)", (chunk_m, chunk_h))
+        admin_conn_autocommit.execute("DELETE FROM documents WHERE id IN (%s, %s)", (doc_m, doc_h))
 
 
 def test_rls_enabled_on_documents(admin_conn):

@@ -1,7 +1,6 @@
 """RAG-10: per-profile partial HNSW indexes, the GIN lexical index and iterative scan."""
 
 import psycopg
-
 from conftest import ADMIN_DSN, zero_vector_literal
 
 
