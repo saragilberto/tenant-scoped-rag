@@ -270,10 +270,10 @@ T31 → T32
 
 **Done when**:
 
-- [ ] Teste confirma que `immutable_unaccent('orçamento')` devolve `orcamento` e que a função é `IMMUTABLE`
-- [ ] Migração é idempotente (`IF NOT EXISTS`)
-- [ ] Gate check passa: `uv run pytest tests/unit tests/integration tests/isolation -q`
-- [ ] Test count: 2 testes passam (sem deleções silenciosas)
+- [x] Teste confirma que `immutable_unaccent('orçamento')` devolve `orcamento` e que a função é `IMMUTABLE`
+- [x] Migração é idempotente (`IF NOT EXISTS`)
+- [x] Gate check passa: `uv run pytest tests/unit tests/integration tests/isolation -q`
+- [x] Test count: 2 testes passam (sem deleções silenciosas)
 
 **Tests**: integration
 **Gate**: full
