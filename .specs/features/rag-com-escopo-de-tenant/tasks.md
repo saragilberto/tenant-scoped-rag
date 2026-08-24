@@ -290,11 +290,11 @@ T31 → T32
 
 **Done when**:
 
-- [ ] As três tabelas existem com as colunas e restrições do design
-- [ ] `chunks.fts` é populada automaticamente ao inserir, com acentos normalizados
-- [ ] `UNIQUE (tenant_id, source_path, content_hash)` presente em `documents`
-- [ ] Gate check passa: `uv run pytest tests/unit tests/integration tests/isolation -q`
-- [ ] Test count: 3 testes passam (sem deleções silenciosas)
+- [x] As três tabelas existem com as colunas e restrições do design
+- [x] `chunks.fts` é populada automaticamente ao inserir, com acentos normalizados
+- [x] `UNIQUE (tenant_id, source_path, content_hash)` presente em `documents`
+- [x] Gate check passa: `uv run pytest tests/unit tests/integration tests/isolation -q`
+- [x] Test count: 3 testes passam (sem deleções silenciosas)
 
 **Tests**: integration
 **Gate**: full
