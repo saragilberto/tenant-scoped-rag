@@ -311,11 +311,11 @@ T31 → T32
 
 **Done when**:
 
-- [ ] Teste afirma que `rag_app` **não** é dono de `documents` nem de `chunks`
-- [ ] Teste afirma que `rag_app` não tem `BYPASSRLS` nem `SUPERUSER`
-- [ ] Teste afirma que `rag_app` não tem `INSERT`, `UPDATE` nem `DELETE` em nenhuma tabela do corpus
-- [ ] Gate check passa: `uv run pytest tests/unit tests/integration tests/isolation -q`
-- [ ] Test count: 4 testes passam (sem deleções silenciosas)
+- [x] Teste afirma que `rag_app` **não** é dono de `documents` nem de `chunks`
+- [x] Teste afirma que `rag_app` não tem `BYPASSRLS` nem `SUPERUSER`
+- [x] Teste afirma que `rag_app` não tem `INSERT`, `UPDATE` nem `DELETE` em nenhuma tabela do corpus
+- [x] Gate check passa: `uv run pytest tests/unit tests/integration tests/isolation -q`
+- [x] Test count: 4 testes passam (sem deleções silenciosas)
 
 **Tests**: integration
 **Gate**: full
