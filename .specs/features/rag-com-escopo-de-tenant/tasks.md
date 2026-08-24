@@ -574,14 +574,14 @@ T31 → T32
 
 **Done when**:
 
-- [ ] Handshake stdio anuncia as tools com seus esquemas (RAG-21)
-- [ ] `top_k` fora de 1–50, `query` vazia e `mode` inválido são rejeitados antes de qualquer consulta (RAG-11 a RAG-13)
-- [ ] Consulta acima de 2.000 caracteres é rejeitada antes de gerar embedding (edge case da spec)
-- [ ] Nenhum parâmetro de escopo existe na assinatura (RAG-16)
-- [ ] Banco inacessível devolve erro e o processo permanece vivo (RAG-22)
-- [ ] Variável de tenant ausente encerra antes de anunciar tool alguma (RAG-17)
-- [ ] Gate check passa: `uv run pytest tests/unit tests/integration tests/isolation -q`
-- [ ] Test count: 9 testes passam (sem deleções silenciosas)
+- [x] Handshake stdio anuncia as tools com seus esquemas (RAG-21)
+- [x] `top_k` fora de 1–50, `query` vazia e `mode` inválido são rejeitados antes de qualquer consulta (RAG-11 a RAG-13)
+- [x] Consulta acima de 2.000 caracteres é rejeitada antes de gerar embedding (edge case da spec)
+- [x] Nenhum parâmetro de escopo existe na assinatura (RAG-16)
+- [x] Banco inacessível devolve erro e o processo permanece vivo (RAG-22)
+- [x] Variável de tenant ausente encerra antes de anunciar tool alguma (RAG-17)
+- [x] Gate check passa: `uv run pytest tests/unit tests/integration tests/isolation -q`
+- [x] Test count: 9 testes passam (sem deleções silenciosas)
 
 **Tests**: integration
 **Gate**: full
