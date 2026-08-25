@@ -745,11 +745,11 @@ T31 → T32
 
 **Done when**:
 
-- [ ] As 12 combinações são executadas e emitidas como tabela markdown (RAG-30)
-- [ ] A tabela declara explicitamente qualquer configuração que não pôde ser medida, em vez de omiti-la
-- [ ] Execução repetida reproduz a mesma tabela
-- [ ] Gate check passa: `uv run pytest tests/unit tests/integration tests/isolation -q`
-- [ ] Test count: 3 testes passam (sem deleções silenciosas)
+- [x] As 12 combinações são executadas e emitidas como tabela markdown (RAG-30)
+- [x] A tabela declara explicitamente qualquer configuração que não pôde ser medida, em vez de omiti-la
+- [x] Execução repetida reproduz a mesma tabela
+- [x] Gate check passa: `uv run pytest tests/unit tests/integration tests/isolation -q`
+- [x] Test count: 3 testes passam (sem deleções silenciosas)
 
 **Tests**: integration
 **Gate**: full

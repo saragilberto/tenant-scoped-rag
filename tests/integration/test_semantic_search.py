@@ -36,8 +36,11 @@ def test_search_orders_results_by_ascending_cosine_distance():
 
 
 def test_search_with_no_chunks_in_scope_returns_empty_list_not_worst_match():
-    with scoped_connection("meridian") as conn:
-        results = semantic.search(conn, "password reset", top_k=5, profile=ChunkProfile.P1024)
+    # A tenant id with zero chunks (RLS filters by tenant_id, not by whether the id
+    # is registered) - the profile itself is populated, so this isolates "nothing in
+    # scope" from "wrong profile" as the reason for zero rows.
+    with scoped_connection("no-such-tenant") as conn:
+        results = semantic.search(conn, "password reset", top_k=5, profile=ChunkProfile.P512)
 
     assert results == []
 
