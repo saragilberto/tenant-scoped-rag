@@ -766,10 +766,10 @@ T31 → T32
 
 **Done when**:
 
-- [ ] Workflow sobe `pgvector/pgvector:pg17`, roda migrações, ingere o corpus e executa as três suítes
-- [ ] Falha da suíte de isolamento reprova o workflow
-- [ ] Cache do modelo configurado, com revisão fixada, para a CI não ficar vermelha por rede
-- [ ] Gate check passa: `uv run ruff check . && uv run ruff format --check . && uv run pytest -q`
+- [x] Workflow sobe `pgvector/pgvector:pg17`, roda migrações, ingere o corpus e executa as três suítes
+- [x] Falha da suíte de isolamento reprova o workflow
+- [x] Cache do modelo configurado, com revisão fixada, para a CI não ficar vermelha por rede
+- [x] Gate check passa: `uv run ruff check . && uv run ruff format --check . && uv run pytest -q`
 
 **Tests**: none
 **Gate**: build
