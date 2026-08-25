@@ -191,8 +191,8 @@ Escopo Complex: cada dimensão resolve em requisito ou em `N/A` justificado.
 | LLM-01 | P1: Contexto pronto para o chat do LLM local | Tasks | Implementing |
 | LLM-02 | P1 | Design | Pending |
 | LLM-03 | P1 | Design | Pending |
-| LLM-04 | P1 | Design | Pending |
-| LLM-05 | P1 | Design | Pending |
+| LLM-04 | P1 | Tasks | Implementing |
+| LLM-05 | P1 | Tasks | Implementing |
 | LLM-06 | P1 | Tasks | Implementing |
 | LLM-07 | P1 | Tasks | Implementing |
 | LLM-08 | P1 | Design | Pending |
@@ -202,8 +202,8 @@ Escopo Complex: cada dimensão resolve em requisito ou em `N/A` justificado.
 | LLM-12 | P2 | Tasks | Implementing |
 | LLM-13 | P2 | Tasks | Implementing |
 | LLM-14 | P2 | Design | Pending |
-| LLM-15 | P3: Abrir o chat automaticamente | Design | Pending |
-| LLM-16 | P3 | Design | Pending |
+| LLM-15 | P3: Abrir o chat automaticamente | Tasks | Implementing |
+| LLM-16 | P3 | Tasks | Implementing |
 
 **ID format:** `LLM-NN`, numerado na ordem de aparição dos critérios de aceite acima (P1 critérios
 1–10 → LLM-01 a LLM-10; P2 critérios 1–4 → LLM-11 a LLM-14; P3 critérios 1–2 → LLM-15 a LLM-16).

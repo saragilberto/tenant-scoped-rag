@@ -158,12 +158,12 @@ de chat completion.
 
 **Done when**:
 
-- [ ] `resolve_base_url()` lê `LOCAL_LLM_BASE_URL`, aplica o default `http://127.0.0.1:8080`, e levanta `ValueError` para valor que não é `http(s)`
-- [ ] `check_health` nunca propaga exceção — timeout, erro de conexão e resposta malformada viram `HealthStatus(reachable=False, ...)`
-- [ ] `check_health` extrai `context_window` de `meta.n_ctx` quando presente na resposta de `GET {base_url}/v1/models`
-- [ ] `open_browser` retorna `False` em vez de propagar quando `webbrowser.open` falha
-- [ ] Gate check passes: `uv run pytest tests/unit -q`
-- [ ] Test count: cobre todo ramo listado na Test Coverage Matrix para este módulo
+- [x] `resolve_base_url()` lê `LOCAL_LLM_BASE_URL`, aplica o default `http://127.0.0.1:8080`, e levanta `ValueError` para valor que não é `http(s)`
+- [x] `check_health` nunca propaga exceção — timeout, erro de conexão e resposta malformada viram `HealthStatus(reachable=False, ...)`
+- [x] `check_health` extrai `context_window` de `meta.n_ctx` quando presente na resposta de `GET {base_url}/v1/models`
+- [x] `open_browser` retorna `False` em vez de propagar quando `webbrowser.open` falha
+- [x] Gate check passes: `uv run pytest tests/unit -q`
+- [x] Test count: cobre todo ramo listado na Test Coverage Matrix para este módulo
 
 **Tests**: unit
 **Gate**: quick
