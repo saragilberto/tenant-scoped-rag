@@ -6,6 +6,7 @@ import psycopg
 import pytest
 
 from rag import context_cli
+from rag.chunking import ChunkProfile
 from rag.local_llm import HealthStatus
 from rag.retrieval import Candidate
 
@@ -157,3 +158,132 @@ def test_pbcopy_absent_does_not_fail_command(monkeypatch, capsys, unreachable_lo
     captured = capsys.readouterr()
     assert "pergunta qualquer" in captured.out
     assert "could not copy" in captured.err
+
+
+def test_explicit_mode_top_k_and_profile_reach_run_search(monkeypatch, unreachable_local_llm):
+    monkeypatch.setenv("RAG_TENANT_ID", "meridian")
+    calls = []
+
+    def _fake_run_search(conn, q, mode, top_k, profile):
+        calls.append((mode, top_k, profile))
+        return [Candidate(chunk_id="c1", document_id="doc-1", text="texto", score=1.0, position=1)]
+
+    monkeypatch.setattr(context_cli.query, "run_search", _fake_run_search)
+    _set_argv(monkeypatch, "pergunta", mode="lexical", top_k=3, profile="P1024")
+
+    context_cli.main()
+
+    assert calls == [("lexical", 3, ChunkProfile.P1024)]
+
+
+def test_open_flag_opens_browser_after_copying_to_clipboard(monkeypatch, unreachable_local_llm):
+    monkeypatch.setenv("RAG_TENANT_ID", "meridian")
+    candidate = Candidate(
+        chunk_id="c1", document_id="doc-1", text="conteúdo do chunk", score=1.0, position=1
+    )
+    monkeypatch.setattr(
+        context_cli.query, "run_search", lambda conn, q, mode, top_k, profile: [candidate]
+    )
+    order = []
+    monkeypatch.setattr(
+        context_cli.context_block,
+        "copy_to_clipboard",
+        lambda text: order.append("copy") or True,
+    )
+    opened = []
+    monkeypatch.setattr(
+        context_cli.local_llm,
+        "open_browser",
+        lambda base_url: order.append("open") or opened.append(base_url) or True,
+    )
+    _set_argv(monkeypatch, "pergunta qualquer", open=True)
+
+    context_cli.main()
+
+    assert opened == ["http://127.0.0.1:8080"]
+    assert order == ["copy", "open"]
+
+
+def test_open_flag_warns_but_continues_when_browser_fails(
+    monkeypatch, capsys, unreachable_local_llm
+):
+    monkeypatch.setenv("RAG_TENANT_ID", "meridian")
+    candidate = Candidate(
+        chunk_id="c1", document_id="doc-1", text="conteúdo do chunk", score=1.0, position=1
+    )
+    monkeypatch.setattr(
+        context_cli.query, "run_search", lambda conn, q, mode, top_k, profile: [candidate]
+    )
+    monkeypatch.setattr(context_cli.local_llm, "open_browser", lambda base_url: False)
+    _set_argv(monkeypatch, "pergunta qualquer", open=True)
+
+    context_cli.main()
+
+    captured = capsys.readouterr()
+    assert "pergunta qualquer" in captured.out
+    assert "could not open the browser" in captured.err
+
+
+def test_warns_when_block_exceeds_local_llm_context_window(monkeypatch, capsys):
+    monkeypatch.setenv("RAG_TENANT_ID", "meridian")
+    monkeypatch.setattr(
+        context_cli.local_llm,
+        "check_health",
+        lambda base_url, timeout=2.0: HealthStatus(reachable=True, detail="ok", context_window=10),
+    )
+    candidate = Candidate(
+        chunk_id="c1", document_id="doc-1", text="a" * 1000, score=1.0, position=1
+    )
+    monkeypatch.setattr(
+        context_cli.query, "run_search", lambda conn, q, mode, top_k, profile: [candidate]
+    )
+    _set_argv(monkeypatch, "pergunta qualquer")
+
+    context_cli.main()
+
+    captured = capsys.readouterr()
+    assert "warning: context block is" in captured.err
+    assert "10" in captured.err
+
+
+def test_no_warning_when_block_fits_local_llm_context_window(monkeypatch, capsys):
+    monkeypatch.setenv("RAG_TENANT_ID", "meridian")
+    monkeypatch.setattr(
+        context_cli.local_llm,
+        "check_health",
+        lambda base_url, timeout=2.0: HealthStatus(
+            reachable=True, detail="ok", context_window=16384
+        ),
+    )
+    candidate = Candidate(
+        chunk_id="c1", document_id="doc-1", text="texto curto", score=1.0, position=1
+    )
+    monkeypatch.setattr(
+        context_cli.query, "run_search", lambda conn, q, mode, top_k, profile: [candidate]
+    )
+    _set_argv(monkeypatch, "pergunta qualquer")
+
+    context_cli.main()
+
+    captured = capsys.readouterr()
+    assert "context block is" not in captured.err
+
+
+def test_rejects_top_k_outside_range_before_touching_database(monkeypatch):
+    monkeypatch.setenv("RAG_TENANT_ID", "meridian")
+    monkeypatch.setattr(context_cli.db, "scoped_connection", _fail_if_called)
+    _set_argv(monkeypatch, "pergunta qualquer", top_k=51)
+
+    with pytest.raises(SystemExit, match="top_k"):
+        context_cli.main()
+
+
+def test_rejects_invalid_local_llm_base_url_before_health_check(monkeypatch):
+    monkeypatch.setenv("RAG_TENANT_ID", "meridian")
+    monkeypatch.setenv("LOCAL_LLM_BASE_URL", "ftp://example.com")
+    monkeypatch.setattr(context_cli.local_llm, "check_health", _fail_if_called)
+    monkeypatch.setattr(context_cli.db, "scoped_connection", _fail_if_called)
+    _set_argv(monkeypatch, "pergunta qualquer")
+
+    with pytest.raises(SystemExit, match="ftp://example.com"):
+        context_cli.main()
