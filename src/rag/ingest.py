@@ -90,33 +90,42 @@ def _ingest_file(
     source_path = str(path)
     content_hash = _content_hash(body)
 
-    already_ingested = conn.execute(
+    existing_document = conn.execute(
         "SELECT id FROM documents WHERE tenant_id = %s AND source_path = %s AND content_hash = %s",
         (tenant_id, source_path, content_hash),
     ).fetchone()
-    if already_ingested is not None:
-        return
 
-    document_id = uuid.uuid4()
-    conn.execute(
-        """
-        INSERT INTO documents
-            (id, tenant_id, source_path, titulo, categoria, versao, visibilidade,
-             content_hash, texto_original)
-        VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)
-        """,
-        (
-            document_id,
-            tenant_id,
-            source_path,
-            front_matter["title"],
-            front_matter["category"],
-            front_matter["version"],
-            front_matter["visibility"],
-            content_hash,
-            body,
-        ),
-    )
+    if existing_document is not None:
+        document_id = existing_document[0]
+        already_chunked_at_profile = conn.execute(
+            "SELECT 1 FROM chunks WHERE document_id = %s AND profile = %s LIMIT 1",
+            (document_id, profile.value),
+        ).fetchone()
+        if already_chunked_at_profile is not None:
+            # Same document, same profile: nothing new to write (RAG-02).
+            return
+    else:
+        document_id = uuid.uuid4()
+        conn.execute(
+            """
+            INSERT INTO documents
+                (id, tenant_id, source_path, titulo, categoria, versao, visibilidade,
+                 content_hash, texto_original)
+            VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)
+            """,
+            (
+                document_id,
+                tenant_id,
+                source_path,
+                front_matter["title"],
+                front_matter["category"],
+                front_matter["version"],
+                front_matter["visibility"],
+                content_hash,
+                body,
+            ),
+        )
+        report.documents_written += 1
 
     chunks = split(body, profile)
     if chunks:
@@ -138,7 +147,6 @@ def _ingest_file(
                 ),
             )
 
-    report.documents_written += 1
     report.chunks_written += len(chunks)
 
 

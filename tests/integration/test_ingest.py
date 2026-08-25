@@ -107,6 +107,39 @@ def test_second_ingest_without_changes_leaves_counts_identical(tmp_path, cleanup
     assert first.documents_written == 1
 
 
+def test_ingesting_a_second_profile_reuses_the_document_and_adds_new_chunks(
+    tmp_path, admin_conn, cleanup_documents
+):
+    """A document already ingested at P512 must not be duplicated when the same
+    corpus is ingested again at P1024 - only its (missing) chunks for that profile
+    are new. Otherwise the ablation study (T30) could never measure chunk size."""
+    doc_path = _write(tmp_path, "password-reset.md", VALID_DOC)
+    cleanup_documents.append(str(doc_path))
+
+    first = ingest(tmp_path, "meridian", ChunkProfile.P512)
+    second = ingest(tmp_path, "meridian", ChunkProfile.P1024)
+
+    assert first.documents_written == 1
+    assert second.documents_written == 0
+    assert second.chunks_written >= 1
+
+    set_tenant(admin_conn, "meridian")
+    document_count = admin_conn.execute(
+        "SELECT count(*) FROM documents WHERE source_path = %s", (str(doc_path),)
+    ).fetchone()[0]
+    profiles_present = admin_conn.execute(
+        """
+        SELECT DISTINCT c.profile FROM chunks c
+        JOIN documents d ON d.id = c.document_id
+        WHERE d.source_path = %s
+        """,
+        (str(doc_path),),
+    ).fetchall()
+
+    assert document_count == 1
+    assert {row[0] for row in profiles_present} == {"P512", "P1024"}
+
+
 def test_failed_file_is_reported_and_ingestion_continues_with_other_files(
     tmp_path, cleanup_documents
 ):
