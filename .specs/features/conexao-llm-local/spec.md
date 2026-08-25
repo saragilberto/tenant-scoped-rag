@@ -189,15 +189,15 @@ Escopo Complex: cada dimensão resolve em requisito ou em `N/A` justificado.
 | Requirement ID | Story | Phase | Status |
 | --------------- | ----- | ----- | ------ |
 | LLM-01 | P1: Contexto pronto para o chat do LLM local | Tasks | Implementing |
-| LLM-02 | P1 | Design | Pending |
-| LLM-03 | P1 | Design | Pending |
+| LLM-02 | P1 | Tasks | Implementing |
+| LLM-03 | P1 | Tasks | Implementing |
 | LLM-04 | P1 | Tasks | Implementing |
 | LLM-05 | P1 | Tasks | Implementing |
 | LLM-06 | P1 | Tasks | Implementing |
 | LLM-07 | P1 | Tasks | Implementing |
-| LLM-08 | P1 | Design | Pending |
+| LLM-08 | P1 | Tasks | Implementing |
 | LLM-09 | P1 | Design | Pending |
-| LLM-10 | P1 | Design | Pending |
+| LLM-10 | P1 | Tasks | Implementing |
 | LLM-11 | P2: Escolher modo, top_k e perfil | Design | Pending |
 | LLM-12 | P2 | Tasks | Implementing |
 | LLM-13 | P2 | Tasks | Implementing |

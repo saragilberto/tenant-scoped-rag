@@ -188,11 +188,11 @@ de chat completion.
 
 **Done when**:
 
-- [ ] `build_block` inclui a pergunta, cada chunk citado por `document_id` e posição, e a instrução de responder só com base no conteúdo apresentado
-- [ ] `copy_to_clipboard` retorna `False` sem levantar exceção quando `pbcopy` está ausente (`shutil.which` retorna `None`) ou quando `subprocess.run` falha
-- [ ] `estimate_tokens` é determinístico e cresce com o tamanho do texto
-- [ ] Gate check passes: `uv run pytest tests/unit -q`
-- [ ] Test count: cobre todo ramo listado na Test Coverage Matrix para este módulo
+- [x] `build_block` inclui a pergunta, cada chunk citado por `document_id` e posição, e a instrução de responder só com base no conteúdo apresentado
+- [x] `copy_to_clipboard` retorna `False` sem levantar exceção quando `pbcopy` está ausente (`shutil.which` retorna `None`) ou quando `subprocess.run` falha
+- [x] `estimate_tokens` é determinístico e cresce com o tamanho do texto
+- [x] Gate check passes: `uv run pytest tests/unit -q`
+- [x] Test count: cobre todo ramo listado na Test Coverage Matrix para este módulo
 
 **Tests**: unit
 **Gate**: quick
