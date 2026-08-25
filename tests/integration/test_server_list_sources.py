@@ -23,6 +23,7 @@ def test_list_sources_returns_only_active_tenant_documents_with_correct_chunk_co
     }
     assert {entry["doc_id"] for entry in result} == admin_ids
     for entry in result:
+        assert set(entry) == {"doc_id", "titulo", "chunk_count"}
         expected = admin_conn.execute(
             "SELECT count(*) FROM chunks WHERE document_id = %s", (entry["doc_id"],)
         ).fetchone()[0]

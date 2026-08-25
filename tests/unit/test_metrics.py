@@ -33,6 +33,12 @@ def test_ndcg_at_k_hand_calculated():
     assert ndcg_at_k(retrieved, relevant, 3) == expected
 
 
+def test_recall_at_k_excludes_relevant_doc_just_past_the_cutoff():
+    retrieved = ["a", "b", "c", "d"]
+    relevant = ["d"]
+    assert recall_at_k(retrieved, relevant, 3) == 0.0
+
+
 def test_recall_at_k_empty_relevant_is_zero():
     assert recall_at_k([], [], 5) == 0.0
     assert recall_at_k(["a"], [], 5) == 0.0
