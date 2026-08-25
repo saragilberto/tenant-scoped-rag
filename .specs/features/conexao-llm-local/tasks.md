@@ -277,8 +277,8 @@ de chat completion.
 
 **Done when**:
 
-- [ ] `uv sync` seguido de `uv run rag-context --help` executa e mostra `--mode`/`--top-k`/`--profile`/`--open`
-- [ ] Gate check passes: `uv run ruff check . && uv run ruff format --check .`
+- [x] `uv sync` seguido de `uv run rag-context --help` executa e mostra `--mode`/`--top-k`/`--profile`/`--open`
+- [x] Gate check passes: `uv run ruff check . && uv run ruff format --check .`
 
 **Tests**: none
 **Gate**: build
