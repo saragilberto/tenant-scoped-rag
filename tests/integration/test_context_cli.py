@@ -1,4 +1,4 @@
-"""End-to-end coverage for the `rag-context` command (LLM-01..LLM-10, LLM-12/13)."""
+"""End-to-end coverage for the `rag-context` command (LLM-01..LLM-16)."""
 
 import subprocess
 
