@@ -786,11 +786,11 @@ T31 → T32
 
 **Done when**:
 
-- [ ] Abre pelo problema e pelo desenho do isolamento, não pela lista de dependências
-- [ ] Publica a manchete: `recall@5` por configuração + zero vazamento em 360 consultas cruzadas
-- [ ] Traz a configuração de Claude Desktop e Claude Code para os dois tenants, colável
-- [ ] Diz explicitamente que a busca léxica é `ts_rank_cd` e **não** BM25, e por quê
-- [ ] Gate check passa: `uv run ruff check . && uv run ruff format --check . && uv run pytest -q`
+- [x] Abre pelo problema e pelo desenho do isolamento, não pela lista de dependências
+- [x] Publica a manchete: `recall@5` por configuração + zero vazamento em 180 consultas cruzadas reais (spec-precision gap: `spec.md` estimava 360 = 60 perguntas × 3 modos × 2 perfis de chunk; a suíte de isolamento implementada em T26 escopa `search()` sempre no perfil fixo `P512` do servidor MCP, então o número real medido é 60 × 3 = 180 — o README publica o número que a suíte de fato executa, não a estimativa original)
+- [x] Traz a configuração de Claude Desktop e Claude Code para os dois tenants, colável
+- [x] Diz explicitamente que a busca léxica é `ts_rank_cd` e **não** BM25, e por quê
+- [x] Gate check passa: `uv run ruff check . && uv run ruff format --check . && uv run pytest -q`
 
 **Tests**: none
 **Gate**: build
