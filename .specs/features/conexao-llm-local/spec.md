@@ -198,10 +198,10 @@ Escopo Complex: cada dimensão resolve em requisito ou em `N/A` justificado.
 | LLM-08 | P1 | Tasks | Implementing |
 | LLM-09 | P1 | Design | Pending |
 | LLM-10 | P1 | Tasks | Implementing |
-| LLM-11 | P2: Escolher modo, top_k e perfil | Design | Pending |
+| LLM-11 | P2: Escolher modo, top_k e perfil | Tasks | Implementing |
 | LLM-12 | P2 | Tasks | Implementing |
 | LLM-13 | P2 | Tasks | Implementing |
-| LLM-14 | P2 | Design | Pending |
+| LLM-14 | P2 | Tasks | Implementing |
 | LLM-15 | P3: Abrir o chat automaticamente | Tasks | Implementing |
 | LLM-16 | P3 | Tasks | Implementing |
 

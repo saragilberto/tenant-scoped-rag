@@ -218,10 +218,10 @@ de chat completion.
 
 **Done when**:
 
-- [ ] `build_parser().parse_args(["pergunta"])` produz `mode="hybrid"`, `top_k=5`, `profile="P512"`, `open=False`
-- [ ] Um `--mode` ou `--profile` fora do conjunto fechado é rejeitado pelo próprio `argparse` (erro antes de qualquer lógica de negócio)
-- [ ] Gate check passes: `uv run pytest tests/unit -q`
-- [ ] Test count: cobre todo ramo listado na Test Coverage Matrix para este módulo
+- [x] `build_parser().parse_args(["pergunta"])` produz `mode="hybrid"`, `top_k=5`, `profile="P512"`, `open=False`
+- [x] Um `--mode` ou `--profile` fora do conjunto fechado é rejeitado pelo próprio `argparse` (erro antes de qualquer lógica de negócio)
+- [x] Gate check passes: `uv run pytest tests/unit -q`
+- [x] Test count: cobre todo ramo listado na Test Coverage Matrix para este módulo
 
 **Tests**: unit
 **Gate**: quick
