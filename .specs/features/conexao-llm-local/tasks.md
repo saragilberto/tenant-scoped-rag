@@ -100,10 +100,10 @@ tocado nesta task.
 
 **Done when**:
 
-- [ ] `validate_query`, `validate_top_k`, `validate_mode` e os valores de `MAX_QUERY_CHARS`/`MIN_TOP_K`/`MAX_TOP_K` são idênticos aos que hoje vivem em `server.py` (mesmos limites, mesmas mensagens de erro)
-- [ ] `run_search(conn, query, mode, top_k, profile)` despacha para `SEARCH_MODULES[mode].search(...)`
-- [ ] Gate check passes: `uv run pytest tests/unit -q`
-- [ ] Test count: cobre todo ramo listado na Test Coverage Matrix para este módulo (sem exclusão silenciosa)
+- [x] `validate_query`, `validate_top_k`, `validate_mode` e os valores de `MAX_QUERY_CHARS`/`MIN_TOP_K`/`MAX_TOP_K` são idênticos aos que hoje vivem em `server.py` (mesmos limites, mesmas mensagens de erro)
+- [x] `run_search(conn, query, mode, top_k, profile)` despacha para `SEARCH_MODULES[mode].search(...)`
+- [x] Gate check passes: `uv run pytest tests/unit -q`
+- [x] Test count: cobre todo ramo listado na Test Coverage Matrix para este módulo (sem exclusão silenciosa)
 
 **Tests**: unit
 **Gate**: quick
