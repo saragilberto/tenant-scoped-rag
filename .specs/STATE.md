@@ -42,13 +42,25 @@
 - **Date**: 2026-08-20
 - **Status**: active
 
+### AD-006
+- **Decision**: Geração assistida por LLM local entra como um comando novo (`rag-context`), externo ao servidor MCP; este repositório nunca chama o endpoint de chat completion do LLM a partir do Python — quem gera é a pessoa, pela interface web que o próprio LLM local (`llamafile`) já serve no navegador. O comando só recupera contexto escopado ao tenant e entrega esse bloco por stdout + área de transferência, com uma checagem de saúde do LLM local que só avisa, nunca bloqueia.
+- **Reason**: AD-003/RAG-16 já fixam "servidor recupera, cliente gera"; a feature anterior tinha deixado a geração como ideia adiada por causa de chave de API e custo por pergunta. Um LLM local remove os dois motivos, mas reabrir a fronteira como uma tool nova de geração no servidor MCP teria enfraquecido essa decisão sem necessidade — a pessoa explicitamente preferiu continuar usando a interface de chat que o llamafile já tem.
+- **Trade-off**: Nenhuma automação end-to-end (pergunta → resposta) sai deste repositório; a pessoa ainda cola o contexto manualmente no navegador. Em troca, o servidor MCP e a suíte de isolamento continuam exatamente como estão.
+- **Scope**: novo comando `rag-context` (`src/rag/context_cli.py`, `local_llm.py`, `context_block.py`, `query.py`); não altera o contrato do servidor MCP.
+- **Date**: 2026-08-25
+- **Status**: active
+
 ## Handoff
 
-- **Feature**: rag-com-escopo-de-tenant (`.specs/features/rag-com-escopo-de-tenant/`)
-- **Phase / Task**: Tasks escrito e validado (`validate_tasks.py`: 0 erros, 4 avisos — todos de camada de configuração que a matriz declara `none`). Spec confirmada, design aprovado. Aguardando aprovação das tasks e da matriz de cobertura para iniciar Execute.
-- **Completed**: discussão das áreas cinzentas · context.md · spec.md (34 requisitos, confirmada) · AD-001 a AD-005 · pesquisa técnica (pgvector 0.8.1; SDK MCP v2 — `FastMCP` renomeada para `MCPServer`) · design.md (aprovado) · tasks.md (32 tasks em 6 fases)
+- **Feature**: conexao-llm-local (`.specs/features/conexao-llm-local/`)
+- **Phase / Task**: spec confirmada, design aprovado, tasks.md escrito e validado (`validate_tasks.py`: 0 erros, 1 aviso — `Tests: none` do T7, que a matriz já confirma como `none` para camada de config). Aguardando aprovação das tasks para iniciar Execute.
+- **Completed**: duas rodadas de discussão (propósito da conexão; fronteira com o MCP; formato do chat) · context.md · spec.md (16 requisitos LLM-01..LLM-16, confirmada) · pesquisa técnica ao vivo — subimos `Qwen3.5-0.8B-Q8_0.llamafile --server` nesta máquina e confirmamos porta 8080, endpoint `/v1/models` sem auth com `meta.n_ctx=16384`, sem processo do llamafile deixado rodando · design.md (aprovado) · AD-006 · tasks.md (7 tasks em 4 fases, cabe em um único lote — sem oferta de sub-agentes)
 - **In-progress** (file:line): nenhum
-- **Next step**: aprovar tasks + matriz de cobertura. Execute começa por T1 (identidade local do git antes do primeiro commit) e T4/T5 (corpus) — 32 tasks empacotam em ~5 lotes, então cabe a oferta de sub-agentes por lote.
-- **Blockers**: nenhum. Instalar `uv` no início da execução (ausente; Python do sistema é 3.9.6 e o SDK MCP v2 exige ≥ 3.10). Docker rodando.
-- **Uncommitted files**: todos — `git init` ainda não executado (é a T1).
-- **Branch**: n/a
+- **Next step**: aprovar tasks.md. Execute roda inline (7 tasks ≤ orçamento de um lote), começando por T1 (`rag/query.py`, sem dependências).
+- **Blockers**: nenhum.
+- **Uncommitted files**: `.specs/features/conexao-llm-local/` (context.md, spec.md, design.md, tasks.md), `.specs/STATE.md` (AD-006 + Handoff) — ainda não commitados; nenhum código de `src/` criado ainda.
+- **Branch**: main
+
+### Feature anterior: rag-com-escopo-de-tenant
+
+- Já implementada e commitada (`git log`: `e412ed1`, `0d31dbe`, `dae4db9`, `eff0958`, `960b78a` e commits anteriores) — o Handoff antigo desta seção, que dizia "`git init` ainda não executado", estava desatualizado; reconciliado nesta sessão contra `git log`/`git status` reais. `.specs/features/rag-com-escopo-de-tenant/tasks.md` deve refletir o progresso real de execução se for consultado de novo.
