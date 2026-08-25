@@ -263,13 +263,13 @@ Escopo Complex: cada dimensão resolve em requisito ou em `N/A` justificado.
 | RAG-20 | P1: Isolamento garantido pelo banco | T26 | ✅ Verified |
 | RAG-21 | P1: Servidor MCP conectável | T22 | ✅ Verified |
 | RAG-22 | P1: Servidor MCP conectável | T22 | ✅ Verified |
-| RAG-23 | P1: Servidor MCP conectável | T2, T22, T32 | ❌ Needs Fix (no test evidence) |
+| RAG-23 | P1: Servidor MCP conectável | T2, T22, T32 | ✅ Verified |
 | RAG-24 | P2: Auditar de onde veio o resultado | T23 | ✅ Verified |
 | RAG-25 | P2: Auditar de onde veio o resultado | T23 | ✅ Verified |
-| RAG-26 | P2: Auditar de onde veio o resultado | T24 | ⚠️ Verified (surviving mutant — fix task created) |
+| RAG-26 | P2: Auditar de onde veio o resultado | T24 | ✅ Verified |
 | RAG-27 | P2: Auditar de onde veio o resultado | T25 | ✅ Verified |
 | RAG-28 | P2: Auditar de onde veio o resultado | T25 | ✅ Verified |
-| RAG-29 | P2: Tabela de ablação reprodutível | T28, T29 | ⚠️ Verified (surviving mutant — fix task created) |
+| RAG-29 | P2: Tabela de ablação reprodutível | T28, T29 | ✅ Verified |
 | RAG-30 | P2: Tabela de ablação reprodutível | T30 | ✅ Verified |
 | RAG-31 | P2: Tabela de ablação reprodutível | T6, T7 | ✅ Verified |
 | RAG-32 | P3: Reranking opcional | T21 | ✅ Verified |

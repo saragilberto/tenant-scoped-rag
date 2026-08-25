@@ -85,7 +85,7 @@ Scratch mechanics: a `git worktree add <scratch> HEAD` for all Python-source mut
 Real worktree `git status --porcelain` re-checked after `git worktree remove --force` and scratch-database drop: identical to the pre-sensor baseline (`?? .specs/features/conexao-llm-local/` only). Sensor run is valid.
 
 **Sensor depth**: P0/critical-path tier — 5 mutations targeting the isolation core (RLS policy, `scoped_connection`, `get_document`, `list_sources`, `search` validation) as required, plus 3 lightweight mutations for chunking/embedding/metrics.
-**Result**: 6/8 killed, 2 survived — ❌ FAIL
+**Result (iteration 1)**: 6/8 killed, 2 survived — ❌ did not discriminate (superseded by iteration 2 below, both survivors now killed)
 
 ---
 
@@ -186,13 +186,13 @@ Spot-checked across 4 tasks spanning 3 different phases: T13 (`src/rag/db.py`, P
 | RAG-20 | In Tasks | ✅ Verified |
 | RAG-21 | In Tasks | ✅ Verified |
 | RAG-22 | In Tasks | ✅ Verified |
-| RAG-23 | In Tasks | ❌ Needs Fix |
+| RAG-23 | In Tasks | ✅ Verified (was ❌ Needs Fix in iteration 1; closed in iteration 2 — see below) |
 | RAG-24 | In Tasks | ✅ Verified |
 | RAG-25 | In Tasks | ✅ Verified |
-| RAG-26 | In Tasks | ⚠️ Verified (surviving mutant M4 — fix task created) |
+| RAG-26 | In Tasks | ✅ Verified (was ⚠️ surviving mutant M4 in iteration 1; killed in iteration 2 — see below) |
 | RAG-27 | In Tasks | ✅ Verified |
 | RAG-28 | In Tasks | ✅ Verified |
-| RAG-29 | In Tasks | ⚠️ Verified (surviving mutant M8 — fix task created) |
+| RAG-29 | In Tasks | ✅ Verified (was ⚠️ surviving mutant M8 in iteration 1; killed in iteration 2 — see below) |
 | RAG-30 | In Tasks | ✅ Verified |
 | RAG-31 | In Tasks | ✅ Verified |
 | RAG-32 | Done (T21) | ✅ Verified |
@@ -217,3 +217,90 @@ Spot-checked across 4 tasks spanning 3 different phases: T13 (`src/rag/db.py`, P
 3. RAG-23 ("single command, no manual step") has zero test evidence — add a smoke test or explicitly document it as a config-verified requirement, see Fix 3.
 
 **Next steps**: Route the 3 fix items above to an implementer, then re-dispatch the Verifier (fix→re-verify loop, max 3 iterations per `validate.md`).
+
+---
+
+## Re-verification (iteration 2)
+
+**Date**: 2026-08-25
+**Diff range since iteration 1**: `c22578d..8fc8454` (`4537232` docs(spec) recording the iteration-1 findings, `8fc8454` test: close verifier gaps)
+**Verifier**: independent sub-agent (fresh dispatch, author ≠ verifier)
+**Scope**: the 3 gaps ranked in iteration 1 (M4 surviving mutant, M8 surviving mutant, RAG-23 no evidence), plus a full-gate regression sanity check. The other 6 mutations (M1–M3, M5–M7) and the 32 clean ACs from iteration 1 were not re-audited, per orchestrator instruction — nothing in that territory was touched by the fix commit.
+
+### Gap 1 — `list_sources` extra-field leak (mutant M4)
+
+- **Fix applied**: `tests/integration/test_server_list_sources.py:26` — `assert set(entry) == {"doc_id", "titulo", "chunk_count"}`, added inside `test_list_sources_returns_only_active_tenant_documents_with_correct_chunk_counts`.
+- **Read and confirmed**: the assertion runs once per returned entry, immediately after the doc-id-set membership check, and pins the exact key set — the same pattern already used for `explain_retrieval` (`test_server_explain_retrieval.py:52-54`). It genuinely tests what it claims: any additional key on the dict (aggregate, count, or otherwise) fails the test.
+- **Mutation re-run**: recreated the *exact* M4 mutation from iteration 1 (`src/rag/server.py` `list_sources` — added a `total_all_tenants` field populated via an unscoped `postgres` admin connection counting `documents` across all tenants, bypassing RLS) in a scratch git worktree (`git worktree add`, never `git stash`). Ran `uv run pytest tests/integration/test_server_list_sources.py -q` against the scratch: **1 failed, 2 passed** — `test_list_sources_returns_only_active_tenant_documents_with_correct_chunk_counts` fails with `AssertionError: assert {'chunk_count', 'doc_id', 'titulo', 'total_all_tenants'} == {'chunk_count', 'doc_id', 'titulo'}`.
+- **Result**: ✅ Mutant M4 now **killed**.
+
+### Gap 2 — `recall_at_k` off-by-one at the k cutoff (mutant M8)
+
+- **Fix applied**: `tests/unit/test_metrics.py:36-39` — new test `test_recall_at_k_excludes_relevant_doc_just_past_the_cutoff`, with `retrieved = ["a", "b", "c", "d"]`, `relevant = ["d"]`, `k = 3`, asserting `recall_at_k(...) == 0.0`.
+- **Read and confirmed**: `"d"` sits at index 3, i.e. exactly one position past the `k=3` cutoff (`retrieved[:3]` excludes it). This is precisely the boundary the iteration-1 report identified as untested — every prior hand-calculated case used `k == len(retrieved)`, making an off-by-one invisible. The new case has `len(retrieved) > k` with the relevant doc sitting exactly at the boundary index, as prescribed by Fix 2.
+- **Mutation re-run**: recreated the *exact* M8 mutation from iteration 1 (`src/eval/metrics.py:21` — `retrieved[:k]` → `retrieved[: k + 1]`) in the same scratch worktree. Ran `uv run pytest tests/unit/test_metrics.py -q` against the scratch: **1 failed, 10 passed** — the new test fails with `AssertionError: assert 1.0 == 0.0` (mutant now includes index 3, counting `"d"` as recalled).
+- **Result**: ✅ Mutant M8 now **killed**.
+
+### Gap 3 — RAG-23 no test evidence
+
+- **Fix applied**: `tests/integration/test_server_smoke.py` (new file), `test_rag_server_entry_point_starts_and_announces_tools_with_no_manual_step`.
+- **Read and confirmed real-subprocess invocation** (not a direct call to `main()`): the test builds `StdioServerParameters(command="uv", args=["run", "--directory", str(REPO_ROOT), "rag-server"], env={"RAG_TENANT_ID": "meridian"})` and drives it through `mcp.client.stdio.stdio_client`, which spawns `uv` as a real OS subprocess, then completes a genuine MCP `ClientSession.initialize()` handshake and `list_tools()` round-trip over that subprocess's stdio pipes (`tests/integration/test_server_smoke.py:14-27`). The `command="uv", args=["run", ...]` shape is a real external-process invocation of the declared `rag-server` script entry point (`pyproject.toml` `[project.scripts]`), not an in-process function call — there is no import of `rag.server.main` anywhere in this file.
+- **Assertion targets the spec-defined outcome**: `assert names == {"search", "get_document", "list_sources", "explain_retrieval"}` (`test_server_smoke.py:32`) confirms all 4 tools are announced after a real cold start, which is the concrete, checkable half of RAG-23's "iniciável com um único comando, sem etapa manual extra" (the single command is `uv run rag-server`, exactly what's documented in `README.md` and declared in `pyproject.toml`).
+- **Executed independently**: `uv run pytest tests/integration/test_server_smoke.py -v` → **1 passed** (see Gate Check below for the full-suite context; the smoke test spawns a real process against the already-running Postgres and completes in the normal test run, no special setup needed).
+- **Result**: ✅ RAG-23 now has direct, real-subprocess test evidence.
+
+### Sensor re-tally
+
+| # | Description | Iteration 1 | Iteration 2 |
+| - | ------------ | ------------ | ------------ |
+| M1–M3, M5–M7 | (unchanged; not re-run this iteration) | ✅ Killed | not re-run (out of scope, untouched by fix) |
+| M4 | `list_sources` unscoped aggregate leak | ❌ Survived | ✅ **Killed** (re-run in scratch worktree, see Gap 1) |
+| M8 | `recall_at_k` off-by-one | ❌ Survived | ✅ **Killed** (re-run in scratch worktree, see Gap 2) |
+
+**Sensor mechanics**: `git worktree add <scratch> HEAD` at commit `8fc8454`, `uv sync` inside it. Baseline `git status --porcelain` on the real tree before sensor work: `M .specs/STATE.md` (unrelated feature, another session) + `?? .specs/features/conexao-llm-local/` (unrelated feature, untracked). Both mutations were injected and reverted/discarded entirely inside the scratch worktree; the scratch was removed with `git worktree remove --force` afterward. Real tree `git status --porcelain` re-checked after cleanup: identical to the pre-sensor baseline (`M .specs/STATE.md`, `?? .specs/features/conexao-llm-local/`) — no `git stash` was used at any point, and the real tree was never mutated. Sensor run is valid.
+
+**Full sensor tally (cumulative)**: 8/8 mutations killed (6 from iteration 1 unchanged + 2 re-killed this iteration).
+**Result**: 8/8 killed - ✅ PASS
+
+### Gate Check (iteration 2)
+
+- **Gate command**: `uv run ruff check . && uv run ruff format --check . && uv run pytest -q`
+- **Result**: `ruff check` — all checks passed. `ruff format --check` — 99 files already formatted. `pytest -q` — **127 passed, 0 failed, 0 skipped** in 54.92s.
+- **Test count reconciliation**: 125 (iteration 1) → 127 (iteration 2). Delta of +2 matches exactly: +1 new case in `tests/unit/test_metrics.py` (`test_recall_at_k_excludes_relevant_doc_just_past_the_cutoff`) + 1 new file `tests/integration/test_server_smoke.py` with 1 test. No test was removed, skipped, or weakened. `tests/integration/test_server_list_sources.py` gained an assertion inside an existing test, not a new test function, so it contributes 0 to the count delta — consistent with the file's `git show --stat` (`+1` line only).
+- **Failures**: none. **Skipped**: none.
+
+### Requirement Traceability (iteration 2 update)
+
+| Requirement | Iteration 1 Status | Iteration 2 Status |
+| ----------- | ------------------- | -------------------- |
+| RAG-23 | ❌ Needs Fix | ✅ Verified — real-subprocess smoke test, `tests/integration/test_server_smoke.py:30-32` |
+| RAG-26 | ⚠️ Verified (surviving mutant M4) | ✅ Verified — mutant M4 killed, `tests/integration/test_server_list_sources.py:26` |
+| RAG-29 | ⚠️ Verified (surviving mutant M8) | ✅ Verified — mutant M8 killed, `tests/unit/test_metrics.py:36-39` |
+
+`spec.md`'s Requirement Traceability table updated to match (RAG-23, RAG-26, RAG-29 rows now read `✅ Verified`, no caveat).
+
+RAG-04's ⚠️ Spec-precision gap (loose 5–30% overlap bound instead of the spec's exact 15%) is unchanged and out of scope for this iteration — it was never one of the 3 ranked gaps routed to the fix→re-verify cycle, and the fix commit did not touch `tests/unit/test_chunking.py`. It remains flagged as a caveat, not a blocking gap: the spec-anchored check rule for this class is "flag it, don't silently pass it" — not "fail the whole feature over it" — and it does not represent a discriminating-power failure (the implementation constant is exact; only the test's tolerance band is loose).
+
+### Code Quality (fix-commit spot-check)
+
+| Principle | Status |
+| --------- | ------ |
+| No features beyond what was asked | ✅ Each fix is exactly the assertion/test prescribed by iteration 1's Fix 1/Fix 2/Fix 3 — no extra behavior added |
+| Only touched files required for task | ✅ `8fc8454` touches exactly the 3 files named in the fix plan; `4537232` touches only spec/validation/lessons docs |
+| Read-only over implementation | ✅ Confirmed no change to any `src/` file in either commit (`git show --stat` above lists test files and docs only) |
+| Matches existing patterns/style | ✅ The `list_sources` fix mirrors the exact pattern already used in `test_server_explain_retrieval.py`; the smoke test follows the existing `asyncio.run(go())` + `assert names == {...}` shape used elsewhere in the integration suite |
+| Tests target the spec-defined outcome, not just "an assertion exists" | ✅ All 3 fixes assert the precise value/shape the spec and iteration-1 fix plan called for |
+
+### Summary (iteration 2)
+
+**Overall**: ✅ Ready
+
+**Spec-anchored check**: 33/34 ACs matched spec outcome exactly; 1 spec-precision gap remains flagged (RAG-04, unchanged, out of scope this iteration); 0 ACs uncovered.
+**Sensor**: 8/8 mutations killed (2 re-verified this iteration: M4, M8).
+**Gate**: 127 passed, 0 failed, 0 skipped.
+
+**What works**: All 3 gaps ranked in iteration 1 are closed with genuine, independently-reproduced evidence — both previously-surviving mutants (M4, M8) now die against the updated tests when the identical fault is re-injected in a scratch worktree, and RAG-23 now has a real-subprocess MCP handshake test rather than zero evidence. No regression: the full gate is green and the test-count delta (+2) reconciles exactly against the 2 new test cases added.
+
+**Issues found**: none blocking. RAG-04's spec-precision gap (loose overlap-ratio bound) remains as a pre-existing, non-blocking caveat, unchanged from iteration 1 and outside this iteration's scope.
+
+**Next steps**: None required for this feature. If RAG-04's spec-precision gap is ever prioritized, tighten `tests/unit/test_chunking.py`'s overlap-ratio assertion to the spec's exact 15% (`abs(ratio - 0.15) < tolerance`) instead of the current 5–30% band.
