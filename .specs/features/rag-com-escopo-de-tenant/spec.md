@@ -241,40 +241,40 @@ Escopo Complex: cada dimensão resolve em requisito ou em `N/A` justificado.
 
 | Requirement ID | Story | Phase | Status |
 | -------------- | ----- | ----- | ------ |
-| RAG-01 | P1: Ingerir o corpus | Design | In Tasks |
-| RAG-02 | P1: Ingerir o corpus | Design | In Tasks |
-| RAG-03 | P1: Ingerir o corpus | Design | In Tasks |
-| RAG-04 | P1: Ingerir o corpus | Design | In Tasks |
-| RAG-05 | P1: Ingerir o corpus | Design | In Tasks |
-| RAG-06 | P1: Ingerir o corpus | Design | In Tasks |
-| RAG-07 | P1: Buscar nos três modos | Design | In Tasks |
-| RAG-08 | P1: Buscar nos três modos | Design | In Tasks |
-| RAG-09 | P1: Buscar nos três modos | Design | In Tasks |
-| RAG-10 | P1: Buscar nos três modos | Design | In Tasks |
-| RAG-11 | P1: Buscar nos três modos | Design | In Tasks |
-| RAG-12 | P1: Buscar nos três modos | Design | In Tasks |
-| RAG-13 | P1: Buscar nos três modos | Design | In Tasks |
-| RAG-14 | P1: Isolamento garantido pelo banco | Design | In Tasks |
-| RAG-15 | P1: Isolamento garantido pelo banco | Design | In Tasks |
-| RAG-16 | P1: Isolamento garantido pelo banco | Design | In Tasks |
-| RAG-17 | P1: Isolamento garantido pelo banco | Design | In Tasks |
-| RAG-18 | P1: Isolamento garantido pelo banco | Design | In Tasks |
-| RAG-19 | P1: Isolamento garantido pelo banco | Design | In Tasks |
-| RAG-20 | P1: Isolamento garantido pelo banco | Design | In Tasks |
-| RAG-21 | P1: Servidor MCP conectável | Design | In Tasks |
-| RAG-22 | P1: Servidor MCP conectável | Design | In Tasks |
-| RAG-23 | P1: Servidor MCP conectável | Design | In Tasks |
-| RAG-24 | P2: Auditar de onde veio o resultado | Design | In Tasks |
-| RAG-25 | P2: Auditar de onde veio o resultado | Design | In Tasks |
-| RAG-26 | P2: Auditar de onde veio o resultado | Design | In Tasks |
-| RAG-27 | P2: Auditar de onde veio o resultado | Design | In Tasks |
-| RAG-28 | P2: Auditar de onde veio o resultado | Design | In Tasks |
-| RAG-29 | P2: Tabela de ablação reprodutível | Design | In Tasks |
-| RAG-30 | P2: Tabela de ablação reprodutível | Design | In Tasks |
-| RAG-31 | P2: Tabela de ablação reprodutível | Design | In Tasks |
-| RAG-32 | P3: Reranking opcional | T21 | Done |
-| RAG-33 | P3: Reranking opcional | T21 | Done |
-| RAG-34 | P3: Reranking opcional | T21 | Done |
+| RAG-01 | P1: Ingerir o corpus | T16 | ✅ Verified |
+| RAG-02 | P1: Ingerir o corpus | T16 | ✅ Verified |
+| RAG-03 | P1: Ingerir o corpus | T14 | ✅ Verified |
+| RAG-04 | P1: Ingerir o corpus | T14 | ⚠️ Verified (spec-precision gap) |
+| RAG-05 | P1: Ingerir o corpus | T16 | ✅ Verified |
+| RAG-06 | P1: Ingerir o corpus | T15 | ✅ Verified |
+| RAG-07 | P1: Buscar nos três modos | T17 | ✅ Verified |
+| RAG-08 | P1: Buscar nos três modos | T18 | ✅ Verified |
+| RAG-09 | P1: Buscar nos três modos | T19 | ✅ Verified |
+| RAG-10 | P1: Buscar nos três modos | T17, T20 | ✅ Verified |
+| RAG-11 | P1: Buscar nos três modos | T22 | ✅ Verified |
+| RAG-12 | P1: Buscar nos três modos | T22 | ✅ Verified |
+| RAG-13 | P1: Buscar nos três modos | T22 | ✅ Verified |
+| RAG-14 | P1: Isolamento garantido pelo banco | T11 | ✅ Verified |
+| RAG-15 | P1: Isolamento garantido pelo banco | T10, T13 | ✅ Verified |
+| RAG-16 | P1: Isolamento garantido pelo banco | T22, T26 | ✅ Verified |
+| RAG-17 | P1: Isolamento garantido pelo banco | T13, T22 | ✅ Verified |
+| RAG-18 | P1: Isolamento garantido pelo banco | T26 | ✅ Verified |
+| RAG-19 | P1: Isolamento garantido pelo banco | T27 | ✅ Verified |
+| RAG-20 | P1: Isolamento garantido pelo banco | T26 | ✅ Verified |
+| RAG-21 | P1: Servidor MCP conectável | T22 | ✅ Verified |
+| RAG-22 | P1: Servidor MCP conectável | T22 | ✅ Verified |
+| RAG-23 | P1: Servidor MCP conectável | T2, T22, T32 | ❌ Needs Fix (no test evidence) |
+| RAG-24 | P2: Auditar de onde veio o resultado | T23 | ✅ Verified |
+| RAG-25 | P2: Auditar de onde veio o resultado | T23 | ✅ Verified |
+| RAG-26 | P2: Auditar de onde veio o resultado | T24 | ⚠️ Verified (surviving mutant — fix task created) |
+| RAG-27 | P2: Auditar de onde veio o resultado | T25 | ✅ Verified |
+| RAG-28 | P2: Auditar de onde veio o resultado | T25 | ✅ Verified |
+| RAG-29 | P2: Tabela de ablação reprodutível | T28, T29 | ⚠️ Verified (surviving mutant — fix task created) |
+| RAG-30 | P2: Tabela de ablação reprodutível | T30 | ✅ Verified |
+| RAG-31 | P2: Tabela de ablação reprodutível | T6, T7 | ✅ Verified |
+| RAG-32 | P3: Reranking opcional | T21 | ✅ Verified |
+| RAG-33 | P3: Reranking opcional | T21 | ✅ Verified |
+| RAG-34 | P3: Reranking opcional | T21 | ✅ Verified |
 
 **ID format:** `RAG-[NÚMERO]`
 

@@ -1,0 +1,81 @@
+{
+  "schema": 1,
+  "promote_threshold": 2,
+  "window_days": 45,
+  "quarantine_threshold": 2,
+  "next_id": 5,
+  "lessons": [
+    {
+      "id": "L-001",
+      "key": "surviving_mutant::when a tool s contract forbids leaking cross scope data assert the exact set of fields each entry returns not just that the in scope items are correct an added aggregate count field can leak scope existence without any existing assertion catching it",
+      "text": "When a tool's contract forbids leaking cross-scope data, assert the exact set of fields each entry returns, not just that the in-scope items are correct - an added aggregate/count field can leak scope existence without any existing assertion catching it.",
+      "signal": "surviving_mutant",
+      "scope": "server,isolation",
+      "status": "candidate",
+      "features": [
+        "rag-com-escopo-de-tenant"
+      ],
+      "recurrence": 1,
+      "harmful": 0,
+      "evidence": [
+        "tests/integration/test_server_list_sources.py (mutant M4: src/rag/server.py list_sources) (server,isolation)"
+      ],
+      "created": "2026-08-25T00:45:58Z",
+      "last_seen": "2026-08-25T00:45:58Z"
+    },
+    {
+      "id": "L-002",
+      "key": "surviving_mutant::when hand calculating a metric or windowed function in a test include at least one case where the input is strictly longer than the window k len retrieved so an off by one at the boundary cannot hide behind a no op slice",
+      "text": "When hand-calculating a metric or windowed function in a test, include at least one case where the input is strictly longer than the window (k < len(retrieved)) so an off-by-one at the boundary cannot hide behind a no-op slice.",
+      "signal": "surviving_mutant",
+      "scope": "metrics,eval",
+      "status": "candidate",
+      "features": [
+        "rag-com-escopo-de-tenant"
+      ],
+      "recurrence": 1,
+      "harmful": 0,
+      "evidence": [
+        "tests/unit/test_metrics.py (mutant M8: src/eval/metrics.py recall_at_k) (metrics,eval)"
+      ],
+      "created": "2026-08-25T00:45:58Z",
+      "last_seen": "2026-08-25T00:45:58Z"
+    },
+    {
+      "id": "L-003",
+      "key": "spec_precision_gap::when the spec states an exact percentage or ratio for a computed property assert that exact value directly from the deterministic parameter that produces it not a loose plausibility band derived from an indirect proxy measurement",
+      "text": "When the spec states an exact percentage or ratio for a computed property, assert that exact value directly from the deterministic parameter that produces it, not a loose plausibility band derived from an indirect proxy measurement.",
+      "signal": "spec_precision_gap",
+      "scope": "chunking",
+      "status": "candidate",
+      "features": [
+        "rag-com-escopo-de-tenant"
+      ],
+      "recurrence": 1,
+      "harmful": 0,
+      "evidence": [
+        "RAG-04 (chunking)"
+      ],
+      "created": "2026-08-25T00:45:58Z",
+      "last_seen": "2026-08-25T00:45:58Z"
+    },
+    {
+      "id": "L-004",
+      "key": "ac_gap::an ac about deployment ergonomics single command no manual step still needs a file line test citation or an explicit spec note scoping it to config only verification otherwise it silently reads as covered when it is not",
+      "text": "An AC about deployment ergonomics (single command, no manual step) still needs a file:line test citation or an explicit spec note scoping it to config-only verification - otherwise it silently reads as covered when it is not.",
+      "signal": "ac_gap",
+      "scope": "server,config",
+      "status": "candidate",
+      "features": [
+        "rag-com-escopo-de-tenant"
+      ],
+      "recurrence": 1,
+      "harmful": 0,
+      "evidence": [
+        "RAG-23 (server,config)"
+      ],
+      "created": "2026-08-25T00:45:58Z",
+      "last_seen": "2026-08-25T00:45:58Z"
+    }
+  ]
+}
