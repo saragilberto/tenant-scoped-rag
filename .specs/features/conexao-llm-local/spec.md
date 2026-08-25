@@ -188,22 +188,22 @@ Escopo Complex: cada dimensão resolve em requisito ou em `N/A` justificado.
 
 | Requirement ID | Story | Phase | Status |
 | --------------- | ----- | ----- | ------ |
-| LLM-01 | P1: Contexto pronto para o chat do LLM local | Tasks | Implementing |
-| LLM-02 | P1 | Tasks | Implementing |
-| LLM-03 | P1 | Tasks | Implementing |
-| LLM-04 | P1 | Tasks | Implementing |
-| LLM-05 | P1 | Tasks | Implementing |
-| LLM-06 | P1 | Tasks | Implementing |
-| LLM-07 | P1 | Tasks | Implementing |
-| LLM-08 | P1 | Tasks | Implementing |
-| LLM-09 | P1 | Tasks | Implementing |
-| LLM-10 | P1 | Tasks | Implementing |
-| LLM-11 | P2: Escolher modo, top_k e perfil | Tasks | Implementing |
-| LLM-12 | P2 | Tasks | Implementing |
-| LLM-13 | P2 | Tasks | Implementing |
-| LLM-14 | P2 | Tasks | Implementing |
-| LLM-15 | P3: Abrir o chat automaticamente | Tasks | Implementing |
-| LLM-16 | P3 | Tasks | Implementing |
+| LLM-01 | P1: Contexto pronto para o chat do LLM local | Tasks | ✅ Verified |
+| LLM-02 | P1 | Tasks | ✅ Verified |
+| LLM-03 | P1 | Tasks | ✅ Verified |
+| LLM-04 | P1 | Tasks | ✅ Verified |
+| LLM-05 | P1 | Tasks | ✅ Verified |
+| LLM-06 | P1 | Tasks | ✅ Verified |
+| LLM-07 | P1 | Tasks | ✅ Verified |
+| LLM-08 | P1 | Tasks | ✅ Verified |
+| LLM-09 | P1 | Tasks | ✅ Verified |
+| LLM-10 | P1 | Tasks | ✅ Verified |
+| LLM-11 | P2: Escolher modo, top_k e perfil | Tasks | ✅ Verified |
+| LLM-12 | P2 | Tasks | ✅ Verified |
+| LLM-13 | P2 | Tasks | ✅ Verified |
+| LLM-14 | P2 | Tasks | ✅ Verified |
+| LLM-15 | P3: Abrir o chat automaticamente | Tasks | ✅ Verified |
+| LLM-16 | P3 | Tasks | ✅ Verified |
 
 **ID format:** `LLM-NN`, numerado na ordem de aparição dos critérios de aceite acima (P1 critérios
 1–10 → LLM-01 a LLM-10; P2 critérios 1–4 → LLM-11 a LLM-14; P3 critérios 1–2 → LLM-15 a LLM-16).

@@ -3,7 +3,7 @@
   "promote_threshold": 2,
   "window_days": 45,
   "quarantine_threshold": 2,
-  "next_id": 5,
+  "next_id": 7,
   "lessons": [
     {
       "id": "L-001",
@@ -76,6 +76,42 @@
       ],
       "created": "2026-08-25T00:45:58Z",
       "last_seen": "2026-08-25T00:45:58Z"
+    },
+    {
+      "id": "L-005",
+      "key": "ac_gap::for a cli entrypoint s optional flags add a test that runs main with a non default flag value and asserts the downstream call reflects it a parser test proving the value parses and a domain unit test proving the function dispatches correctly do not together prove the entrypoint wires one to the other",
+      "text": "For a CLI entrypoint's optional flags, add a test that runs main() with a non-default flag value and asserts the downstream call reflects it - a parser test proving the value parses and a domain unit test proving the function dispatches correctly do not together prove the entrypoint wires one to the other.",
+      "signal": "ac_gap",
+      "scope": "cli-orchestration",
+      "status": "candidate",
+      "features": [
+        "conexao-llm-local"
+      ],
+      "recurrence": 1,
+      "harmful": 0,
+      "evidence": [
+        "LLM-11 (cli-orchestration)"
+      ],
+      "created": "2026-08-25T11:29:42Z",
+      "last_seen": "2026-08-25T11:29:42Z"
+    },
+    {
+      "id": "L-006",
+      "key": "surviving_mutant::a conditional that only gates a stderr warning not an exit code or return value is as easy to leave untested as one that gates a return value test warning only branches explicitly in both directions not just the branches with an observable exit code or output presence effect",
+      "text": "A conditional that only gates a stderr warning (not an exit code or return value) is as easy to leave untested as one that gates a return value - test warning-only branches explicitly in both directions, not just the branches with an observable exit-code or output-presence effect.",
+      "signal": "surviving_mutant",
+      "scope": "cli-orchestration",
+      "status": "candidate",
+      "features": [
+        "conexao-llm-local"
+      ],
+      "recurrence": 1,
+      "harmful": 0,
+      "evidence": [
+        "src/rag/context_cli.py:93 (cli-orchestration)"
+      ],
+      "created": "2026-08-25T11:29:42Z",
+      "last_seen": "2026-08-25T11:29:42Z"
     }
   ]
 }

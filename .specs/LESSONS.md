@@ -38,6 +38,18 @@ Seen once or not yet corroborated. Tracked, not trusted.
 - evidence: RAG-23 (server,config)
 - last seen: 2026-08-25T00:45:58Z
 
+### L-005 - For a CLI entrypoint's optional flags, add a test that runs main() with a non-default flag value and asserts the downstream call reflects it - a parser test proving the value parses and a domain unit test proving the function dispatches correctly do not together prove the entrypoint wires one to the other.
+- signal: `ac_gap` · recurrence: 1 feature(s) · scope: `cli-orchestration` · harmful: 0
+- features: conexao-llm-local
+- evidence: LLM-11 (cli-orchestration)
+- last seen: 2026-08-25T11:29:42Z
+
+### L-006 - A conditional that only gates a stderr warning (not an exit code or return value) is as easy to leave untested as one that gates a return value - test warning-only branches explicitly in both directions, not just the branches with an observable exit-code or output-presence effect.
+- signal: `surviving_mutant` · recurrence: 1 feature(s) · scope: `cli-orchestration` · harmful: 0
+- features: conexao-llm-local
+- evidence: src/rag/context_cli.py:93 (cli-orchestration)
+- last seen: 2026-08-25T11:29:42Z
+
 ## Quarantined (failed when applied - ignore)
 
 A confirmed lesson that recurred alongside failure. Kept for the maintainer to review.
