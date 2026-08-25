@@ -52,13 +52,13 @@
 
 ## Handoff
 
-- **Feature**: conexao-llm-local (`.specs/features/conexao-llm-local/`)
-- **Phase / Task**: spec confirmada, design aprovado, tasks.md escrito e validado (`validate_tasks.py`: 0 erros, 1 aviso — `Tests: none` do T7, que a matriz já confirma como `none` para camada de config). Aguardando aprovação das tasks para iniciar Execute.
-- **Completed**: duas rodadas de discussão (propósito da conexão; fronteira com o MCP; formato do chat) · context.md · spec.md (16 requisitos LLM-01..LLM-16, confirmada) · pesquisa técnica ao vivo — subimos `Qwen3.5-0.8B-Q8_0.llamafile --server` nesta máquina e confirmamos porta 8080, endpoint `/v1/models` sem auth com `meta.n_ctx=16384`, sem processo do llamafile deixado rodando · design.md (aprovado) · AD-006 · tasks.md (7 tasks em 4 fases, cabe em um único lote — sem oferta de sub-agentes)
-- **In-progress** (file:line): nenhum
-- **Next step**: aprovar tasks.md. Execute roda inline (7 tasks ≤ orçamento de um lote), começando por T1 (`rag/query.py`, sem dependências).
+- **Feature**: conexao-llm-local (`.specs/features/conexao-llm-local/`) — **concluída**.
+- **Phase / Task**: Execute completo (T1-T7, todas commitadas) · Verifier rodou 2 rodadas — round 1 FAIL (6 ACs de P2/P3 sem evidência no nível `context_cli.main()`, 1 mutante sobrevivente no branch de aviso de janela de contexto), fix aplicado, round 2 PASS. `validate_state.py conexao-llm-local`: 0 erros.
+- **Completed**: as 7 tasks + `validation.md` (PASS, 16/16 ACs cobertas, sensor 3/3 morto, gate 181 testes verdes) + traceability de `spec.md` toda `Verified` + duas lições registradas como candidatas (L-005, L-006, sobre testar plumbing de flags de CLI até `main()` e branches que só emitem warning).
+- **In-progress** (file:line): nenhum.
+- **Next step**: nenhum pendente nesta feature. Próxima feature a definir com a pessoa.
 - **Blockers**: nenhum.
-- **Uncommitted files**: `.specs/features/conexao-llm-local/` (context.md, spec.md, design.md, tasks.md), `.specs/STATE.md` (AD-006 + Handoff) — ainda não commitados; nenhum código de `src/` criado ainda.
+- **Uncommitted files**: nenhum — tudo commitado (`f796224`..`1e2bf81`).
 - **Branch**: main
 
 ### Feature anterior: rag-com-escopo-de-tenant
