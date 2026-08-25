@@ -1,7 +1,5 @@
 import subprocess
 
-import pytest
-
 from rag import context_block
 from rag.retrieval import Candidate
 

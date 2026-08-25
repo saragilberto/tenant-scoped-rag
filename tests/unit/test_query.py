@@ -57,10 +57,9 @@ class TestRunSearch:
             monkeypatch.setattr(
                 module,
                 "search",
-                lambda conn, q, top_k, profile, name=name: calls.append(
-                    (name, conn, q, top_k, profile)
-                )
-                or [],
+                lambda conn, q, top_k, profile, name=name: (
+                    calls.append((name, conn, q, top_k, profile)) or []
+                ),
             )
 
         conn = object()
