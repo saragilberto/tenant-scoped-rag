@@ -245,15 +245,15 @@ de chat completion.
 
 **Done when**:
 
-- [ ] Caminho feliz contra o Postgres do repositório (tenant `meridian`, corpus já ingerido pela suíte de integração) produz um bloco em stdout e o mesmo conteúdo na área de transferência quando `pbcopy` está disponível
-- [ ] `RAG_TENANT_ID` ausente/desconhecido falha com a mesma mensagem de `resolve_tenant_from_env`, sem tentar a checagem de saúde nem a recuperação (LLM-06)
-- [ ] Pergunta vazia ou acima do limite é rejeitada antes de qualquer chamada ao banco (LLM-07)
-- [ ] LLM local inacessível (nenhuma instância rodando, como no ambiente de CI) produz um aviso em stderr e ainda assim entrega o bloco (LLM-05)
-- [ ] Zero chunks retornados não copia nem imprime um bloco vazio (LLM-08)
-- [ ] Banco inacessível (via monkeypatch de `scoped_connection`) produz mensagem clara em stderr (LLM-09)
-- [ ] `pbcopy` ausente (esperado no runner de CI, Linux) não falha o comando — stdout continua correto (LLM-10)
-- [ ] Gate check passes: `uv run pytest tests/unit -q && uv run pytest tests/integration -q`
-- [ ] Test count: cobre todo caso listado na Test Coverage Matrix para `context_cli.py — main`, sem exclusão silenciosa
+- [x] Caminho feliz contra o Postgres do repositório (tenant `meridian`, corpus já ingerido pela suíte de integração) produz um bloco em stdout e o mesmo conteúdo na área de transferência quando `pbcopy` está disponível
+- [x] `RAG_TENANT_ID` ausente/desconhecido falha com a mesma mensagem de `resolve_tenant_from_env`, sem tentar a checagem de saúde nem a recuperação (LLM-06)
+- [x] Pergunta vazia ou acima do limite é rejeitada antes de qualquer chamada ao banco (LLM-07)
+- [x] LLM local inacessível (nenhuma instância rodando, como no ambiente de CI) produz um aviso em stderr e ainda assim entrega o bloco (LLM-05)
+- [x] Zero chunks retornados não copia nem imprime um bloco vazio (LLM-08)
+- [x] Banco inacessível (via monkeypatch de `scoped_connection`) produz mensagem clara em stderr (LLM-09)
+- [x] `pbcopy` ausente (esperado no runner de CI, Linux) não falha o comando — stdout continua correto (LLM-10)
+- [x] Gate check passes: `uv run pytest tests/unit -q && uv run pytest tests/integration -q`
+- [x] Test count: cobre todo caso listado na Test Coverage Matrix para `context_cli.py — main`, sem exclusão silenciosa
 
 **Tests**: integration
 **Gate**: full

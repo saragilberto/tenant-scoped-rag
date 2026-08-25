@@ -196,7 +196,7 @@ Escopo Complex: cada dimensão resolve em requisito ou em `N/A` justificado.
 | LLM-06 | P1 | Tasks | Implementing |
 | LLM-07 | P1 | Tasks | Implementing |
 | LLM-08 | P1 | Tasks | Implementing |
-| LLM-09 | P1 | Design | Pending |
+| LLM-09 | P1 | Tasks | Implementing |
 | LLM-10 | P1 | Tasks | Implementing |
 | LLM-11 | P2: Escolher modo, top_k e perfil | Tasks | Implementing |
 | LLM-12 | P2 | Tasks | Implementing |
