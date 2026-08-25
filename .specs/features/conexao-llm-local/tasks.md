@@ -129,10 +129,10 @@ provê; `server.search` e `server.explain_retrieval` passam a chamar `query.vali
 
 **Done when**:
 
-- [ ] `server.py` não define mais `_validate_query`/`_validate_top_k`/`_validate_mode`/`_SEARCH_MODULES`/`_MAX_QUERY_CHARS`/`_MIN_TOP_K`/`_MAX_TOP_K` — importa de `rag.query`
-- [ ] Nenhum teste existente em `tests/integration/test_server*.py` ou `tests/isolation/*` foi editado
-- [ ] Gate check passes: `uv run pytest tests/integration -q && uv run pytest tests/isolation -q`
-- [ ] Test count: mesma contagem de testes que passava antes desta task (nenhuma remoção, nenhuma falha)
+- [x] `server.py` não define mais `_validate_query`/`_validate_top_k`/`_validate_mode`/`_SEARCH_MODULES`/`_MAX_QUERY_CHARS`/`_MIN_TOP_K`/`_MAX_TOP_K` — importa de `rag.query`
+- [x] Nenhum teste existente em `tests/integration/test_server*.py` ou `tests/isolation/*` foi editado
+- [x] Gate check passes: `uv run pytest tests/integration -q && uv run pytest tests/isolation -q`
+- [x] Test count: mesma contagem de testes que passava antes desta task (nenhuma remoção, nenhuma falha)
 
 **Tests**: integration
 **Gate**: full

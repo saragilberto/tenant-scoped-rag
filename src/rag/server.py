@@ -6,7 +6,7 @@ widen or disable that scope - a client has no argument to forge because none exi
 """
 
 import uuid
-from typing import Annotated, Literal
+from typing import Annotated
 
 import psycopg
 from mcp.server import MCPServer
@@ -14,28 +14,26 @@ from mcp.server.mcpserver.exceptions import ToolError
 from pydantic import Field, StringConstraints
 
 from rag import db
+from rag import query as rag_query
 from rag.chunking import ChunkProfile
-from rag.retrieval import Candidate, hybrid, lexical, semantic
+from rag.query import Mode
+from rag.retrieval import Candidate, lexical, semantic
 
 __all__ = ["mcp", "main"]
 
-Mode = Literal["semantic", "lexical", "hybrid"]
-_SEARCH_MODULES = {"semantic": semantic, "lexical": lexical, "hybrid": hybrid}
 _PROFILE = ChunkProfile.P512
-_MAX_QUERY_CHARS = 2000
-_MIN_TOP_K = 1
-_MAX_TOP_K = 50
 
 # Schema-level constraints, not just the manual checks below: the SDK validates arguments
 # against these before the tool body ever runs, and a rejection at that layer keeps the
 # specific reason ("top_k must be...") in what the client sees. A bare exception raised
 # from inside the tool body is treated as a crash and replaced with a generic message -
-# `_validate_query`/`_validate_top_k` stay as a second line of defense for direct callers
-# (this module's own tests included), who bypass argument validation entirely.
+# `rag_query.validate_query`/`rag_query.validate_top_k` stay as a second line of defense for
+# direct callers (this module's own tests included), who bypass argument validation entirely.
 Query = Annotated[
-    str, StringConstraints(strip_whitespace=True, min_length=1, max_length=_MAX_QUERY_CHARS)
+    str,
+    StringConstraints(strip_whitespace=True, min_length=1, max_length=rag_query.MAX_QUERY_CHARS),
 ]
-TopK = Annotated[int, Field(ge=_MIN_TOP_K, le=_MAX_TOP_K)]
+TopK = Annotated[int, Field(ge=rag_query.MIN_TOP_K, le=rag_query.MAX_TOP_K)]
 
 _EXPLAIN_POOL_SIZE = 50
 _RRF_K = 60
@@ -55,26 +53,6 @@ def _tenant() -> str:
     return _active_tenant
 
 
-def _validate_query(query: str) -> str:
-    if not query or not query.strip():
-        raise ValueError("query must not be empty")
-    if len(query) > _MAX_QUERY_CHARS:
-        raise ValueError(f"query must be at most {_MAX_QUERY_CHARS} characters")
-    return query
-
-
-def _validate_top_k(top_k: int) -> int:
-    if not (_MIN_TOP_K <= top_k <= _MAX_TOP_K):
-        raise ValueError(f"top_k must be between {_MIN_TOP_K} and {_MAX_TOP_K}")
-    return top_k
-
-
-def _validate_mode(mode: str) -> Mode:
-    if mode not in _SEARCH_MODULES:
-        raise ValueError(f"mode must be one of {sorted(_SEARCH_MODULES)}")
-    return mode  # type: ignore[return-value]
-
-
 def _candidate_to_dict(candidate: Candidate) -> dict:
     return {
         "chunk_id": candidate.chunk_id,
@@ -88,12 +66,12 @@ def _candidate_to_dict(candidate: Candidate) -> dict:
 @mcp.tool()
 def search(query: Query, mode: Mode = "hybrid", top_k: TopK = 5) -> list[dict]:
     """Search the active tenant's corpus. Never accepts a scope parameter (RAG-16)."""
-    query = _validate_query(query)
-    top_k = _validate_top_k(top_k)
-    mode = _validate_mode(mode)
+    query = rag_query.validate_query(query)
+    top_k = rag_query.validate_top_k(top_k)
+    mode = rag_query.validate_mode(mode)
     try:
         with db.scoped_connection(_tenant()) as conn:
-            candidates = _SEARCH_MODULES[mode].search(conn, query, top_k, _PROFILE)
+            candidates = rag_query.run_search(conn, query, mode, top_k, _PROFILE)
     except psycopg.OperationalError as exc:
         raise ToolError(f"database is unreachable: {exc}") from exc
     return [_candidate_to_dict(c) for c in candidates]
@@ -160,9 +138,9 @@ def explain_retrieval(query: Query, mode: Mode = "hybrid", top_k: TopK = 5) -> l
     tenant's row before either ranking is built - there is no out-of-scope candidate
     left to omit, count, or otherwise leak a hint about (RAG-28).
     """
-    query = _validate_query(query)
-    top_k = _validate_top_k(top_k)
-    mode = _validate_mode(mode)
+    query = rag_query.validate_query(query)
+    top_k = rag_query.validate_top_k(top_k)
+    mode = rag_query.validate_mode(mode)
 
     try:
         with db.scoped_connection(_tenant()) as conn:
